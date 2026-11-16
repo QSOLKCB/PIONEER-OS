@@ -305,8 +305,8 @@ function Vulkan({award}: {award:Award}) {
   </div>;
 }
 function Terminal() {
-  const [input,setInput]=useState('help');
-  const [lines,setLines]=useState<string[]>(['PIONEER-OS™ restricted terminal', 'No shell access. No remote calls. Type help.']);
+  const [input,setInput]=useState('pioneer install humility');
+  const [lines,setLines]=useState<string[]>(['PIONEER-OS™ restricted terminal', 'No shell access. No remote calls. Type help, or try pioneer install humility.']);
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (input.trim().toLowerCase()==='clear') setLines([]);

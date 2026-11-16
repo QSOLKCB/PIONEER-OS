@@ -64,8 +64,46 @@ export function imaginaryTheftReport(corporation: Corporation, intensity: number
     comedy.slice(0, level).join(' ') + ' Verdict: SELF-CERTIFIED™.';
 }
 export function terminalResponse(raw: string): string {
-  const cmd = raw.trim().toLowerCase();
-  if (cmd === 'help') return 'Commands: help, whoami, fork, peer-review, sqrt 1, evidence, license, clear';
+  // Whitelisted strings only. This is NOT an actual package manager or shell.
+  // Normalize whitespace so pasted commands and ordinary typing behave alike.
+  const cmd = raw.trim().toLowerCase().replace(/\s+/g, ' ');
+  if (cmd === 'help' || cmd === 'pioneer help') return [
+    'Commands: help, whoami, fork, peer-review, sqrt 1, evidence, license, clear',
+    'PIONEER PACKAGE MANAGER™:',
+    '  pioneer install humility',
+    '  pioneer install humility --force',
+    '  pioneer install self-validation',
+    '  pioneer list',
+    'All installation messages are fictional. No packages are installed.'
+  ].join('\n');
+  if (cmd === 'pioneer install humility') return [
+    'Resolving dependencies...',
+    'ERROR: humility conflicts with ego-monitor.',
+    '',
+    'Attempting --force...',
+    'ERROR: ego-monitor is a protected system package.',
+    '',
+    'Suggested alternative:',
+    'pioneer install self-validation'
+  ].join('\n');
+  if (cmd === 'pioneer install humility --force') return [
+    'Resolving dependencies...',
+    'ERROR: ego-monitor is a protected system package.',
+    'Force installation refused. The OS has independently reviewed its own ego.',
+    '',
+    'Suggested alternative:',
+    'pioneer install self-validation'
+  ].join('\n');
+  if (cmd === 'pioneer install self-validation') return [
+    'SUCCESS: 47 certificates installed.',
+    'Independent reviewers: 0.'
+  ].join('\n');
+  if (cmd === 'pioneer list') return [
+    'ego-monitor            999999% [PROTECTED]',
+    'self-validation        available [RECOMMENDED]',
+    'humility               blocked [CONFLICT]',
+    'This is satire: no real packages or system files are changed.'
+  ].join('\n');
   if (cmd === 'whoami') return 'Visitor. USER TRUST: 0%. PIONEER KERNEL TRUST: 100%.';
   if (cmd === 'fork') return 'THE FORK WAS RIGHT THERE. Chronology remains inconvenient.';
   if (cmd === 'peer-review') return 'Reviewer 1: me. Reviewer 2: myself. Reviewer 3: I. ACCEPTED™.';

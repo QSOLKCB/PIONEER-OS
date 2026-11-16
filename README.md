@@ -20,7 +20,7 @@ The site publishes **only after** the PR is merged to main, the verification job
 - MAX-CONFIDENCE™, **EGO Monitor™** (live top-right readout and clickable diagnostics), Trust Inversion™, P-HACKER™, Peer Review Chamber™, Source-of-My-Source™ (clickable sources, stepwise citation-following and bounded cycle detection) and Badge Vault™.
 - AI Training Simulator™ changes a prompt string but does **not** train a model.
 - Prior Art Time Machine™, Evidence Hider™ and entirely **fictional** Corporate Theft Detector™.
-- Minimum Function Patent Office™, Truth-o-Matic™, a reproduced fixed-point square-root defect, Float Exorcist™, fake VulkanBridge™, single-loop Clockwork Loom™ and a whitelist-only terminal.
+- Minimum Function Patent Office™, Truth-o-Matic™, a reproduced fixed-point square-root defect, Float Exorcist™, fake VulkanBridge™, single-loop Clockwork Loom™ and a whitelist-only terminal with the **fictional Humility Package Manager™** (`pioneer install humility`, `pioneer install humility --force`, and `pioneer install self-validation`).
 - Real chronology and source links under Evidence & Sources.
 - No backend, cookies, local storage, telemetry, user account or network-dependent runtime API.
 - Responsive layout; keyboard-enabled app controls; reduced-motion preference.
