@@ -19,7 +19,12 @@ export function citationTarget(source: number, count: number): number {
 
 /** The path includes its first repeated vertex only once, at the end. */
 export function isCitationLoopClosed(path: readonly number[]): boolean {
-  return path.length>1 && new Set(path).size<path.length;
+  const seen=new Set<number>();
+  for(let i=0;i<path.length;i++){
+    if(seen.has(path[i])) return i===path.length-1;
+    seen.add(path[i]);
+  }
+  return false;
 }
 
 export function advanceCitation(path: readonly number[], count: number): number[] {
