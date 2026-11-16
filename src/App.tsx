@@ -12,7 +12,7 @@ type WindowState = { open: boolean; minimized: boolean; maximized: boolean; x: n
 type Award = (badge: string) => void;
 
 const apps: AppDef[] = [
-  { id: 'welcome', name: 'Welcome to PIONEER-OS', icon: '◈', group: 'SYSTEM', subtitle: 'The world's most self-confident desktop' },
+  { id: 'welcome', name: 'Welcome to PIONEER-OS', icon: '◈', group: 'SYSTEM', subtitle: "The world\u0027s most self-confident desktop" },
   { id: 'confidence', name: 'MAX-CONFIDENCE™', icon: '▥', group: 'RESEARCH', subtitle: 'Contradiction is a confidence booster' },
   { id: 'trust', name: 'Trust Inversion Engine™', icon: '⚖', group: 'RESEARCH', subtitle: 'User 0% · System 100%' },
   { id: 'phacker', name: 'P-HACKER™', icon: '∑', group: 'RESEARCH', subtitle: 'Fabricate significance, award badge' },
