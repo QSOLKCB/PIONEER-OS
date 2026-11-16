@@ -7,7 +7,8 @@ import {
 } from './logic';
 import type { Corporation } from './logic';
 import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
-import { egoLevel } from './egoMonitor';
+import { collectAward, egoLevel, EGO_DISPLAY_CAP } from './egoMonitor';
+import type { AwardState } from './egoMonitor';
 
 type AppDef = { id: string; name: string; icon: string; group: string; subtitle: string };
 type WindowState = { open: boolean; minimized: boolean; maximized: boolean; x: number; y: number; z: number };
@@ -109,7 +110,7 @@ function EgoMonitor({
       <span className="eyebrow">EGO Monitor™ / SYSTEM CONFIDENCE</span>
       <strong aria-live="polite">{reading.toLocaleString('en-AU')}%</strong>
       <div className="meter"><span style={{width:'100%'}}/></div>
-      <small>MAXIMUM SAFE VALUE: UNDOCUMENTED™</small>
+      <small>{reading>=EGO_DISPLAY_CAP?'DISPLAY SATURATED™ — further events are counted, not displayed':'DISPLAY CAP: 999,999% — the chart refuses to admit its limitations™'}</small>
     </div>
     <div className="two">
       <Panel title="SELF-ENDORSEMENTS"><BigScore label="RECEIVED FROM SELF" score={endorsements} suffix=""/></Panel>
@@ -330,8 +331,11 @@ export default function App() {
   const [menu,setMenu]=useState(false);
   const [activeGroup,setActiveGroup]=useState('ALL');
   const [search,setSearch]=useState('');
-  const [badges,setBadges]=useState<string[]>([]);
-  const [egoEndorsements,setEgoEndorsements]=useState(0);
+  // Badges and their endorsement count share one atomic state transition.
+  // A repeated certificate is not a new endorsement (even in StrictMode).
+  const [awardState,setAwardState]=useState<AwardState>({badges:[],endorsements:0});
+  const badges=awardState.badges;
+  const egoEndorsements=awardState.endorsements;
   const [egoObjections,setEgoObjections]=useState(0);
   const [quote,setQuote]=useState(0);
   const [clock,setClock]=useState('');
@@ -391,8 +395,7 @@ export default function App() {
   }
   function endDrag() {drag.current=null;}
   function award(badge:string) {
-    setBadges(prev=>prev.includes(badge)?prev:[...prev,badge]);
-    setEgoEndorsements(prev=>prev+1);
+    setAwardState(prev=>collectAward(prev,badge));
   }
   const ego=egoLevel(egoEndorsements,egoObjections);
   const shown=apps.filter(a=>(activeGroup==='ALL'||a.group===activeGroup)&&
@@ -403,7 +406,7 @@ export default function App() {
   return <div className="desktop">
     <div className="wallpaper-grid" aria-hidden="true"/>
     <header className="topbar"><button className="brand" onClick={()=>{setMenu(!menu);}} aria-expanded={menu} aria-label="Toggle applications menu"><span className="brand-mark">P★</span><b>PIONEER-OS</b><span className="brand-edition">MAX-CONFIDENCE™</span></button>
-      <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span className="self-status">SELF <b className="gold">100%</b></span><button className="ego-status" type="button" onClick={()=>openApp("ego")} aria-label={"Open EGO Monitor™, currently "+ego.toLocaleString("en-AU")+" percent"}>EGO Monitor™ <b>{ego.toLocaleString("en-AU")}%</b></button><span className="clock">{clock}</span></div>
+      <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span className="self-status">SELF <b className="gold">100%</b></span><button className="ego-status" type="button" onClick={()=>openApp("ego")} aria-label={"Open EGO Monitor™, currently "+ego.toLocaleString("en-AU")+" percent"+(ego>=EGO_DISPLAY_CAP?", display capped":"")}>EGO Monitor™ <b className="ego-status-value">{ego.toLocaleString("en-AU")}%</b></button><span className="clock">{clock}</span></div>
     </header>
     <aside className="sidebar" aria-label="Desktop shortcuts"><div className="sidebar-section">PINNED SYSTEM APPS</div>
       {apps.filter(a=>['welcome','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
@@ -423,7 +426,7 @@ export default function App() {
         <div className="titlebar" onPointerDown={e=>beginDrag(e,a.id)} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
           <div className="window-title"><span className="win-icon">{a.icon}</span><span>{a.name}<small>{a.subtitle}</small></span></div><div className="window-controls"><button type="button" title="Minimize" aria-label={'Minimize '+a.name} onClick={()=>mutateWindow(a.id,{minimized:true})}>−</button><button type="button" title="Maximize or restore" aria-label={'Maximize or restore '+a.name} onClick={()=>mutateWindow(a.id,{maximized:!w.maximized})}>□</button><button type="button" title="Close" aria-label={'Close '+a.name} onClick={()=>mutateWindow(a.id,{open:false})}>×</button></div>
         </div>
-        <div className="window-body"><AppContent id={a.id} open={openApp} award={award} badges={badges} ego={ego} endorsements={egoEndorsements} objections={egoObjections} onPraise={()=>setEgoEndorsements(prev=>prev+1)} onObjection={()=>setEgoObjections(prev=>prev+1)}/></div>
+        <div className="window-body"><AppContent id={a.id} open={openApp} award={award} badges={badges} ego={ego} endorsements={egoEndorsements} objections={egoObjections} onPraise={()=>setAwardState(prev=>({...prev,endorsements:prev.endorsements+1}))} onObjection={()=>setEgoObjections(prev=>prev+1)}/></div>
         <div className="window-foot"><span>◈ SELF-CERTIFIED OPERATING ENVIRONMENT</span><span>WINDOW #{String(apps.indexOf(a)+1).padStart(2,'0')} · NO PROOF IMPLIED</span></div>
       </section>;
     })}

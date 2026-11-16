@@ -179,6 +179,10 @@ input[type=range]{width:100%;accent-color:#d9ab5f;cursor:pointer}
   .top-status{gap:6px}
   .ego-status{font-size:9px;padding:5px 4px}
   .clock{font-size:9px}
+  .topbar{gap:8px}
+  .top-status{flex-shrink:0}
+  .clock{flex-shrink:0}
+
   .sidebar{top:51px;width:57px;bottom:66px;padding:9px 2px}
   .sidebar-section{display:none}
   .dock-app{width:50px;min-height:50px}
@@ -200,5 +204,12 @@ input[type=range]{width:100%;accent-color:#d9ab5f;cursor:pointer}
   .source-list a{grid-template-columns:1fr}
   .wallpaper-title{font-size:20vw}
   .disclaimer{font-size:7px;letter-spacing:0}
+}
+/* Keep the real clock visible at a 320px viewport, even at the 999,999% cap. */
+@media(max-width:480px){
+  .ego-status-value{display:none}
+}
+@media(max-width:360px){
+  .topbar .brand b{display:none}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

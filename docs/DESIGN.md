@@ -7,7 +7,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 - Industrial charcoal, gold authority badges, simulated vintage technical control room.
 - Ceremonial boot splash; app launcher, windows, taskbar, pin shortcuts and system status.
 - The persistent joke is a **trust inversion**: 0% user trust, 100% self trust, regardless of actual inputs.
-- **EGO Monitor™** sits between SELF 100% and the actual clock. Its fictional reading begins at 9,001% and rises with every awarded self-certificate or submitted objection. Clicking its status readout opens an interactive diagnosis window. No value purports to assess a real person.
+- **EGO Monitor™** sits between SELF 100% and the actual clock. Its fictional reading begins at 9,001% and rises with each **distinct** awarded badge, deliberate self-congratulation, or submitted objection **until the display cap of 999,999%**. Re-awarding an existing badge is idempotent and does not increase the endorsement count. After saturation, the numeric reading stays at the cap while events remain counted; the diagnostics window explicitly discloses saturation. Clicking the indicator opens the diagnostics window. Below 480px, the numeric EGO value is hidden (but remains accessible in the button label and diagnostics) so the real clock stays visible. No value purports to assess a real person.
 - Opening, closing, dragging, minimizing and maximizing works on desktop; responsive fallback stacks windows on narrow screens.
 - Source records appear in a separate, accurate source inspector so fabricated badges are never passed off as facts.
 
@@ -15,7 +15,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 
 1. Welcome Desk — OS certifies itself.
 2. MAX-CONFIDENCE — contradictions increase fake confidence.
-2a. EGO Monitor™ — system ego increases from self-praise and objections, never decreases.
+2a. EGO Monitor™ — system ego increases from distinct badge awards, self-praise and objections until its declared display cap; repeated badges do not inflate it.
 3. Trust Inversion — user witnesses rejected, system self-review accepted.
 4. P-HACKER — invented p-value formula, with explicit warning.
 5. Peer-Reviewed-By-Me — three reviewer chairs filled by me, myself and I.
