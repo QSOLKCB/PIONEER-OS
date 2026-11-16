@@ -13,6 +13,11 @@
   <a href="docs/DESIGN.md">📐 Design notes</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/QSOLKCB/PIONEER-OS/actions/workflows/pages.yml"><img alt="Verify and publish PIONEER-OS — main CI" src="https://github.com/QSOLKCB/PIONEER-OS/actions/workflows/pages.yml/badge.svg?branch=main"/></a>
+  <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-c79754"/></a>
+</p>
+
 > [!IMPORTANT]
 > **PIONEER-OS™ is satire.** It is an interactive browser parody, **not** a real operating system, trained language model, statistical package or scientific verification tool. All gold badges, mock certifications, corporate-theft reports, invented statistics and terminal package operations are fictional. References to real-world claims are not endorsements or evidence of wrongdoing.
 
@@ -162,17 +167,18 @@ Requires **Node.js 22+**. React 18, Vite, TypeScript and the test dependencies a
 
 The local server is provided by Vite. Production files are built into <code>dist/</code> using the GitHub Pages base path <code>/PIONEER-OS/</code>.
 
-## CI, deployment and first release
+## CI, deployment and first tag
 
 GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified <code>push</code> events to <code>main</code> can deploy; pull requests and all manual workflow dispatches are verification-only and cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
-For the immutable first release:
+**Post-merge status:** [PR #5](https://github.com/QSOLKCB/PIONEER-OS/pull/5) delivered the banner, creator credit, Q16.16 exhibit, and source documentation to `main`. The merged main-branch [verification and Pages deployment](https://github.com/QSOLKCB/PIONEER-OS/actions/runs/43905134772) passed. The first release tag has **not** yet been created.
 
-1. Review and merge the README/banner PR and any remaining release PRs.
-2. Confirm green checks and deployment for the final <code>main</code> commit.
-3. Smoke-test terminal commands, source-cycle tracing, EGO Monitor™ and the narrow-screen clock.
-4. Create tag <code>v0.1.0</code> on the verified release commit, title **The Pioneer™ Edition**.
-5. Use the release URL and the separate NotebookLM DOCX as source material for the Audio Overview.
+To produce the immutable first release:
+
+1. Confirm the latest `main` CI and Pages deployment are green after the final README update.
+2. Smoke-test terminal commands (`pioneer install humility`, `pioneer run VCH LLM.tar.gz`, `pioneer audit q16.16`), source-cycle tracing, EGO Monitor™ and the narrow-screen clock.
+3. Create tag **`v0.1.0`** on that verified `main` commit, with release title **The Pioneer™ Edition**. Do not move the tag after publication.
+4. Use `https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0` alongside the NotebookLM DOCX **after the release is actually published**. This is the planned URL, not an existing release link.
 
 ## Licence, attribution and scope
 
