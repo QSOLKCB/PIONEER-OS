@@ -71,3 +71,19 @@ test('package list and help reveal simulated commands without executing input', 
   assert.match(terminalResponse('pioneer install humility; rm -rf /'), /Unknown command/);
   assert.match(terminalResponse('pioneer install self-validation && whoami'), /Unknown command/);
 });
+
+test('PIONEER runtime archive gag ends with the precise requested verdict',()=>{
+  const output=terminalResponse('pioneer run VCH LLM.tar.gz');
+  assert.ok(output.startsWith('PIONEER RUNTIME™ — SIMULATED EXECUTION ONLY'));
+  assert.match(output,/Neural-network weights loaded: 0/);
+  assert.match(output,/Archive execution: NOT ATTEMPTED/);
+  assert.equal(output.split('\n').at(-1),'Bug detected, no new maths');
+  assert.equal(output,terminalResponse('   PIONEER   RUN   "VCH LLM.tar.gz"  '));
+});
+
+test('only the exact fictional archive command is whitelisted',()=>{
+  assert.match(terminalResponse('pioneer run ../VCH LLM.tar.gz'),/Unknown command/);
+  assert.match(terminalResponse('pioneer run VCH LLM.tar.gz; whoami'),/Unknown command/);
+  assert.match(terminalResponse('pioneer run VCH LLM.tar.gz && rm -rf /'),/Unknown command/);
+  assert.match(terminalResponse('help'),/pioneer run VCH LLM.tar.gz/);
+});

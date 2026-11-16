@@ -74,7 +74,8 @@ export function terminalResponse(raw: string): string {
     '  pioneer install humility --force',
     '  pioneer install self-validation',
     '  pioneer list',
-    'All installation messages are fictional. No packages are installed.'
+    '  pioneer run VCH LLM.tar.gz',
+    'All installation and execution messages are fictional. No files are opened or run.'
   ].join('\n');
   if (cmd === 'pioneer install humility') return [
     'Resolving dependencies...',
@@ -97,6 +98,18 @@ export function terminalResponse(raw: string): string {
   if (cmd === 'pioneer install self-validation') return [
     'SUCCESS: 47 certificates installed.',
     'Independent reviewers: 0.'
+  ].join('\n');
+  // Scripted parody of a previously inspected archive. No archive access or execution.
+  if (cmd === 'pioneer run vch llm.tar.gz' || cmd === 'pioneer run "vch llm.tar.gz"') return [
+    'PIONEER RUNTIME™ — SIMULATED EXECUTION ONLY',
+    'Requested archive: VCH LLM.tar.gz',
+    'Scanning TypeScript + React application metadata...',
+    'Neural-network weights loaded: 0.',
+    'Mathematical identity (n / 1n) * 1n = n confirmed.',
+    'Independent peer reviewers detected: 0.',
+    'Confidence badge issued anyway: PIONEER VERIFIED™.',
+    'Archive execution: NOT ATTEMPTED. No files were opened.',
+    'Bug detected, no new maths'
   ].join('\n');
   if (cmd === 'pioneer list') return [
     'ego-monitor            999999% [PROTECTED]',
