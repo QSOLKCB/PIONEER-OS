@@ -1,55 +1,150 @@
-# PIONEER-OS™ — MAX-CONFIDENCE™ Edition
+[![PIONEER-OS™ — MAX-CONFIDENCE™ Edition. We didn't invent mathematics; we gave ourselves a badge.](assets/pioneer-os-banner.svg)](https://qsolkcb.github.io/PIONEER-OS/)
 
-**The operating system that distrusts everyone except itself.**
+<p align="center">
+  <strong>The operating system that distrusts everyone except itself.</strong><br/>
+  <em>Evidence optional. Certainty guaranteed™. The fork was right there.</em>
+</p>
 
-> **SATIRE.** An interactive browser mock desktop, not an operating system, trained language model, scientific verification tool, or proof of corporate misconduct. All mock verdicts are fictional.
+<p align="center">
+  <a href="https://qsolkcb.github.io/PIONEER-OS/">🖥️ Launch desktop</a> ·
+  <a href="https://github.com/QSOLKCB/PIONEER-OS/actions/workflows/pages.yml">⚙️ CI and Pages</a> ·
+  <a href="docs/EVIDENCE.md">🔎 Evidence register</a> ·
+  <a href="docs/DESIGN.md">📐 Design notes</a>
+</p>
 
-**We Didn't Invent Mathematics. We Just Gave Ourselves a Badge™.**
+> [!IMPORTANT]
+> **PIONEER-OS™ is satire.** It is an interactive browser parody, **not** a real operating system, trained language model, statistical package or scientific verification tool. All gold badges, mock certifications, corporate-theft reports, invented statistics and terminal package operations are fictional. References to real-world claims are not endorsements or evidence of wrongdoing.
 
-Inspired by the interactive [LCOS browser parody](https://github.com/QSOLKCB/LCOS), reimagined with TypeScript and React 18. The satirical UI is deliberately extravagant; its evidence claims remain conservative and independently checkable.
+## Welcome to MAX-CONFIDENCE™
 
-## Live site
+What happens when TypeScript + React, elaborate software branding and self-certified research meet a very simple policy?
 
-https://qsolkcb.github.io/PIONEER-OS/
+| System diagnostic | Official reading |
+| --- | ---: |
+| **USER TRUST** | **0%** |
+| **SELF TRUST** | **100%** |
+| **EGO Monitor™** | **9,001%**, rising to a documented cap |
+| Independent reviewers | **0** |
+| Sources citing their own sources | **All of them** |
+| Actual neural weights updated | **0** |
 
-The site publishes **only after** the PR is merged to main, the verification job passes, and Pages is configured for GitHub Actions.
+The clock is real. Everything else is extraordinarily confident about itself.
 
-## The desktop
+Inspired by the interactive [LCOS parody](https://github.com/QSOLKCB/LCOS), this is a deliberately overdesigned browser desktop: ceremonial boot, charcoal-and-gold wallpaper, application launcher, taskbar, draggable/minimizable/maximizable windows, keyboard-usable controls and responsive small-screen layout.
 
-- Mock boot sequence, desktop wallpaper, launch menu, taskbar and window management (open, focus, drag, minimize, maximize, close).
-- MAX-CONFIDENCE™, **EGO Monitor™** (live top-right readout and clickable diagnostics), Trust Inversion™, P-HACKER™, Peer Review Chamber™, Source-of-My-Source™ (clickable sources, stepwise citation-following and bounded cycle detection) and Badge Vault™.
-- AI Training Simulator™ changes a prompt string but does **not** train a model.
-- Prior Art Time Machine™, Evidence Hider™ and entirely **fictional** Corporate Theft Detector™.
-- Minimum Function Patent Office™, Truth-o-Matic™, a reproduced fixed-point square-root defect, Float Exorcist™, fake VulkanBridge™, single-loop Clockwork Loom™ and a whitelist-only terminal with the **fictional Humility Package Manager™** (`pioneer install humility`, `pioneer install humility --force`, and `pioneer install self-validation`), plus the explicitly scripted `pioneer run VCH LLM.tar.gz` parody ending **“Bug detected, no new maths”**. No archives are opened or executed.
-- Real chronology and source links under Evidence & Sources.
-- No backend, cookies, local storage, telemetry, user account or network-dependent runtime API.
-- Responsive layout; keyboard-enabled app controls; reduced-motion preference.
+**Play now:** https://qsolkcb.github.io/PIONEER-OS/
 
-## Build and verify
+## The application catalogue
 
-Node 22 or newer. This React/Vite build uses a small, explicitly pinned set of direct dependencies.
+All **20 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
 
-~~~sh
-npm install --no-audit --no-fund --ignore-scripts
-npm test
-npm run build
-npm run dev
-~~~
+| Application | Certified™ behaviour |
+| --- | --- |
+| **MAX-CONFIDENCE™** | More contradictions yield greater fake certainty. |
+| **EGO Monitor™** | Distinct badges and objections raise fictional ego; repeat awards don't double-count. The cap is disclosed. |
+| **Trust Inversion Engine™** | External witnesses count for nothing; the system certifies itself instantly. |
+| **P-HACKER™** | Reroll a deliberately fabricated, scientifically meaningless p-value. |
+| **Peer-Reviewed-By-Me™** | Submit a paper to Me, Myself and I. |
+| **Source-of-My-Source™** | Choose a source, follow its citations, trace a complete cycle and discover zero independent roots. |
+| **AI Training Simulator™** | Edit a prompt; claim a new model. No model is trained. |
+| **Prior Art Time Machine™** | Feed it dates; earlier work becomes fictional “retroactive infringement.” |
+| **Corporate Theft Detector™** | Choose a company for a plainly fictional parody, never a real allegation. |
+| **Evidence Hider™** | Hide contradictory observations on screen without changing the facts. |
+| **Minimum Patent Office™** | Select the smaller of two numbers and claim a revolutionary discovery. |
+| **Reality Adjustment Calculator™** | Compare actual square roots with a reproduced bug from an inspected TypeScript archive. |
+| **Truth-o-Matic™** | Supply high confidence scores; obtain a worthless VERIFIED™ verdict. |
+| **Float Exorcist™** | Mistake decimal punctuation for a technical offence. |
+| **Clockwork Loom™** | Display 32 imaginary CPU workers driven by one ordinary serial loop. |
+| **VulkanBridge™** | Admire a CSS-only faux GPU dashboard. No Vulkan backend exists. |
+| **Pioneer Terminal™** | Enter safe, whitelisted parody commands. There is no real shell. |
+| **Badge Vault™** | Collect certificates from the only institution the OS trusts: itself. |
+| **Evidence & Source Register** | Browse actual links, chronology, scope and limitations. |
+| **Welcome Desk** | Learn why zero independent reviewers merit 100% system trust. |
 
-For local dev, Vite uses the Pages base URL prefix /PIONEER-OS/. The static build output is dist/.
+## Pioneer Terminal™: selected exhibits
 
-## Research source material
+Enter these commands in the live browser demo. They trigger **fixed, scripted text**; nothing is installed, downloaded, opened, unpacked or executed.
 
-See [docs/EVIDENCE.md](docs/EVIDENCE.md) for direct references, dates, source hashes, caveats, and the distinction between tested defects and invented jokes. [docs/DESIGN.md](docs/DESIGN.md) explains the parody app logic.
+### The Humility Package Manager™
 
-The companion NotebookLM document is titled **THE FORK WAS RIGHT THERE™ — A Comprehensive History of Self-Certified Pioneering, Mathematical Reinvention, and the Alleged Global Theft of Math.min()**.
+    pioneer@reality:~$ pioneer install humility
+    Resolving dependencies...
+    ERROR: humility conflicts with ego-monitor.
 
-A GitHub repository creation date is not the invention date of a mathematical idea. A DOI is not automatically independent peer review. An AI-generated response is not a corporate admission. The jokes are imaginary, the evidence boundaries are not.
+    Attempting --force...
+    ERROR: ego-monitor is a protected system package.
 
-## Deployment
+    Suggested alternative:
+    pioneer install self-validation
 
-The Pages workflow verifies PRs without publishing them. It deploys only from main after successful tests and build; manual dispatches from non-main refs cannot deploy. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+    pioneer@reality:~$ pioneer install self-validation
+    SUCCESS: 47 certificates installed.
+    Independent reviewers: 0.
 
-Proposed tag after owner review: **v0.1.0 — The Pioneer™ Edition**.
+### Archive execution simulation
 
-Apache-2.0. The fork really is right there.
+    pioneer@reality:~$ pioneer run VCH LLM.tar.gz
+    PIONEER RUNTIME™ — SIMULATED EXECUTION ONLY
+    Requested archive: VCH LLM.tar.gz
+    Scanning TypeScript + React application metadata...
+    Neural-network weights loaded: 0.
+    Mathematical identity (n / 1n) * 1n = n confirmed.
+    Independent peer reviewers detected: 0.
+    Confidence badge issued anyway: PIONEER VERIFIED™.
+    Archive execution: NOT ATTEMPTED. No files were opened.
+    Bug detected, no new maths
+
+Other supported commands include <code>help</code>, <code>pioneer list</code>, <code>pioneer install humility --force</code>, <code>whoami</code>, <code>peer-review</code>, <code>fork</code>, <code>sqrt 1</code>, <code>evidence</code>, <code>license</code> and <code>clear</code>.
+
+**No model weights are loaded, modified or trained.** The archive command is a scripted reference to earlier source inspection, not archive handling.
+
+## The fork was right there: what the sources establish
+
+This parody draws on inspected code, public repository metadata and extravagant third-party attribution claims. It distinguishes **reproduced evidence** from **unverified allegations**.
+
+| Record | What it establishes | What it does *not* establish |
+| --- | --- | --- |
+| [fusion-qec-sim](https://github.com/multimodalas/fusion-qec-sim) → [fusion-qec](https://github.com/multimodalas/fusion-qec) → [QSOLKCB/QEC](https://github.com/QSOLKCB/QEC) | Public fork ancestry and October 2025 repository creation dates. | First invention of fixed-point arithmetic or whether anyone copied work. |
+| Inspected visualizer ZIP | One implementation of Fixed.sqrt(1) produced approximately **64.004232** in a recorded reproduction; mathematical √1 is **1**. | New mathematics or a universal failure of other software. |
+| [VANILLAJS Q16.16 implementation](https://github.com/QSOLKCB/VANILLAJS/blob/main/modules/integer-math/index.js) and [Q16-ECMA-001](https://github.com/QSOLKCB/VANILLAJS/blob/main/docs/Q16_ECMA_001.md) | Inspectable checked arithmetic and explicitly bounded proof claims. | A universal proof of every JavaScript path. |
+| Titles alleging corporate credit theft or suppression | That allegations have been published. | That they are true or that an AI answer constitutes an official corporate admission. |
+
+For provenance hashes, dates, links and limits of inference, read **[docs/EVIDENCE.md](docs/EVIDENCE.md)**.
+
+The companion NotebookLM dossier is entitled *THE FORK WAS RIGHT THERE™ — A Comprehensive History of Self-Certified Pioneering, Mathematical Reinvention, and the Alleged Global Theft of Math.min()*.
+
+**Evidence labels:** *Verified* means inspected records; *Executed* means observed behaviour with an identified input; *Unverified allegation* records a claim without adopting it; *Satire* means invented comedy. A DOI is not automatically independent peer review, and a file hash verifies bytes rather than the truth of claims.
+
+## Build and verify locally
+
+Requires **Node.js 22+**. React 18, Vite, TypeScript and the test dependencies are pinned as direct dependencies. No backend, Docker, user account, telemetry or runtime AI API is required.
+
+    git clone https://github.com/QSOLKCB/PIONEER-OS.git
+    cd PIONEER-OS
+
+    npm install --no-audit --no-fund --ignore-scripts
+    npm test
+    npm run build
+    npm run dev
+
+The local server is provided by Vite. Production files are built into <code>dist/</code> using the GitHub Pages base path <code>/PIONEER-OS/</code>.
+
+## CI, deployment and first release
+
+GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified pushes to <code>main</code> can deploy; manually dispatched workflows from other branches cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+For the immutable first release:
+
+1. Review and merge the README/banner PR and any remaining release PRs.
+2. Confirm green checks and deployment for the final <code>main</code> commit.
+3. Smoke-test terminal commands, source-cycle tracing, EGO Monitor™ and the narrow-screen clock.
+4. Create tag <code>v0.1.0</code> on the verified release commit, title **The Pioneer™ Edition**.
+5. Use the release URL and the separate NotebookLM DOCX as source material for the Audio Overview.
+
+## Licence, attribution and scope
+
+**Apache-2.0**. The code is intentionally forkable. The [LCOS browser parody](https://github.com/QSOLKCB/LCOS) is credited as the design inspiration. Referenced third-party archives are **not** bundled with or executed by the site.
+
+> **The peer was right there. It was a mirror.**  
+> **The fork was right there. In October.**  
+> **The bug was right there. No new maths.**

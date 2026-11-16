@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-labelledby="title desc">
+<title id="title">PIONEER-OS™ — MAX-CONFIDENCE™ Edition</title>
+<desc id="desc">Charcoal and amber operating system parody banner showing PIONEER-OS, fictional status USER 0%, SELF 100%, EGO Monitor 9001%, with a self-reviewed seal.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17272b"/><stop offset=".6" stop-color="#101c21"/><stop offset="1" stop-color="#070d10"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe1a0"/><stop offset=".5" stop-color="#e8b66a"/><stop offset="1" stop-color="#aa783d"/></linearGradient>
+<pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#99b0af" stroke-opacity=".13"/></pattern>
+<clipPath id="clip"><rect width="1280" height="380" rx="14"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+<rect width="1280" height="380" fill="url(#bg)"/>
+<rect width="1280" height="380" fill="url(#grid)"/>
+<path d="M0 2H1280" stroke="#d7a354" stroke-width="4"/>
+<path d="M0 377H1280" stroke="#d7a354" stroke-opacity=".6" stroke-width="2"/>
+<circle cx="1175" cy="145" r="174" fill="none" stroke="#ac7c3b" stroke-opacity=".23" stroke-width="2"/>
+<circle cx="1175" cy="145" r="133" fill="none" stroke="#d8af6c" stroke-opacity=".17"/>
+<circle cx="1175" cy="145" r="91" fill="none" stroke="#d8af6c" stroke-opacity=".27" stroke-dasharray="6 11" stroke-width="2"/>
+<path d="M994 145H1280 M1175 0V288" stroke="#be914c" stroke-opacity=".13"/>
+<rect x="48" y="30" width="192" height="28" rx="3" fill="#352a1b" stroke="#c79b5f"/>
+<text x="62" y="49" font-family="DejaVu Sans,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.2" fill="#f2c681">QSOL-IMC // SATIRE LAB</text>
+<text x="48" y="103" font-family="DejaVu Sans,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#9fb5b3">THE WORLD'S FIRST SELF-CERTIFYING DESKTOP*</text>
+<text x="41" y="204" font-family="DejaVu Sans,Arial,sans-serif" font-size="97" font-weight="900" letter-spacing="-4" fill="url(#gold)">PIONEER-OS</text>
+<text x="740" y="153" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" font-weight="800" fill="#f3c77a">™</text>
+<text x="48" y="241" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="2.4" fill="#d1dcdd">MAX-CONFIDENCE™ EDITION</text>
+<text x="48" y="275" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" fill="#aabfc0">We didn't invent mathematics. We just gave ourselves a badge™.</text>
+<path d="M48 299H1005" stroke="#667974" stroke-opacity=".55"/>
+<rect x="48" y="311" width="968" height="47" rx="5" fill="#0a1216" stroke="#706243"/>
+<path d="M244 320V349 M445 320V349 M755 320V349" stroke="#4b5655"/>
+<text x="64" y="341" font-family="DejaVu Sans,Arial,sans-serif" font-size="13" font-weight="700" fill="#b6c6c7">USER <tspan fill="#fb8278">0%</tspan></text>
+<text x="262" y="341" font-family="DejaVu Sans,Arial,sans-serif" font-size="13" font-weight="700" fill="#b6c6c7">SELF <tspan fill="#f6c680">100%</tspan></text>
+<text x="463" y="341" font-family="DejaVu Sans,Arial,sans-serif" font-size="13" font-weight="700" fill="#b6c6c7">EGO Monitor™ <tspan fill="#f6c680">9,001%</tspan></text>
+<text x="774" y="341" font-family="DejaVu Sans,Arial,sans-serif" font-size="11" font-weight="700" fill="#9eb5b3">PEER: SELF</text>
+<circle cx="1175" cy="145" r="63" fill="#2d2318" stroke="#dca963" stroke-width="3"/>
+<text x="1135" y="176" font-family="DejaVu Sans,Arial,sans-serif" font-size="86" font-weight="900" fill="#f5c778">P</text>
+<text x="1200" y="128" font-family="DejaVu Sans,Arial,sans-serif" font-size="35" fill="#f5c778">★</text>
+<rect x="1043" y="294" width="216" height="46" rx="4" fill="#3c301d" stroke="#d5a15b"/>
+<text x="1056" y="313" font-family="DejaVu Sans,Arial,sans-serif" font-size="11" font-weight="800" letter-spacing="1" fill="#f7c579">SELF-REVIEWED™</text>
+<text x="1056" y="329" font-family="DejaVu Sans,Arial,sans-serif" font-size="9" letter-spacing=".7" fill="#e9c995">THE FORK WAS RIGHT THERE.</text>
+<text x="48" y="373" font-family="DejaVu Sans,Arial,sans-serif" font-size="9" letter-spacing="1" fill="#809594">*NOT A REAL OPERATING SYSTEM, MODEL TRAINER OR SCIENTIFIC VERIFICATION TOOL. MOCK VERDICTS ARE FICTION.</text>
+</g>
+</svg>
