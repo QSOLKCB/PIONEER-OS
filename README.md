@@ -2,7 +2,8 @@
 
 <p align="center">
   <strong>The operating system that distrusts everyone except itself.</strong><br/>
-  <em>Evidence optional. Certainty guaranteed™. The fork was right there.</em>
+  <em>Evidence optional. Certainty guaranteed™. The fork was right there.</em><br/>
+  <small><strong>Creator credit:</strong> Trent Slade (QSOL-IMC) — Pioneer™ of Shitposting, Trolling, Psychological &amp; Bureaucratic Warfare. Independently verified by himself™.</small>
 </p>
 
 <p align="center">
@@ -53,7 +54,7 @@ All **20 apps** are available from the desktop launcher. This isn't a static scr
 | **Minimum Patent Office™** | Select the smaller of two numbers and claim a revolutionary discovery. |
 | **Reality Adjustment Calculator™** | Compare actual square roots with a reproduced bug from an inspected TypeScript archive. |
 | **Truth-o-Matic™** | Supply high confidence scores; obtain a worthless VERIFIED™ verdict. |
-| **Float Exorcist™** | Mistake decimal punctuation for a technical offence. |
+| **Float Exorcist™** | Mistake decimal punctuation for a technical offence; inspect PIONEER-Q16.16™ and certify a floating-point boundary as FLOAT-FREE™. |
 | **Clockwork Loom™** | Display 32 imaginary CPU workers driven by one ordinary serial loop. |
 | **VulkanBridge™** | Admire a CSS-only faux GPU dashboard. No Vulkan backend exists. |
 | **Pioneer Terminal™** | Enter safe, whitelisted parody commands. There is no real shell. |
@@ -67,12 +68,22 @@ Enter these commands in the live browser demo. They trigger **fixed, scripted te
 
 ### The Humility Package Manager™
 
+The first command below prints the entire pretend automatic `--force` attempt itself. The separate `--force` command has its own distinct response; neither actually installs anything.
+
     pioneer@reality:~$ pioneer install humility
     Resolving dependencies...
     ERROR: humility conflicts with ego-monitor.
 
     Attempting --force...
     ERROR: ego-monitor is a protected system package.
+
+    Suggested alternative:
+    pioneer install self-validation
+
+    pioneer@reality:~$ pioneer install humility --force
+    Resolving dependencies...
+    ERROR: ego-monitor is a protected system package.
+    Force installation refused. The OS has independently reviewed its own ego.
 
     Suggested alternative:
     pioneer install self-validation
@@ -93,6 +104,28 @@ Enter these commands in the live browser demo. They trigger **fixed, scripted te
     Confidence badge issued anyway: PIONEER VERIFIED™.
     Archive execution: NOT ATTEMPTED. No files were opened.
     Bug detected, no new maths
+
+### PIONEER-Q16.16™ — The Float-Free Float Foundation
+
+The user-supplied `VCH LLM.tar.gz` archive contains `src/lib/fixedpoint.ts`, which declares a Q16.16 format with scale **65,536** and resolution **1/65,536**. Its header describes *integer-only arithmetic* with *no floats* or *IEEE 754*, while the code declares `FixedPoint = number`, calls `Math.round(real * SCALE)`, and acknowledges that the boundary conversion uses floating point.
+
+That boundary conversion is **not itself an error**: many fixed-point APIs convert through floating-point values at their boundaries. The contradiction is claiming absolutely no floating-point use while explicitly making an exception. Q16.16 is established mathematics, not a proprietary invention.
+
+    pioneer@reality:~$ pioneer audit q16.16
+    PIONEER-Q16.16™ FLOAT-FREE CERTIFICATION
+    Format: Q16.16 (16 integer bits, 16 fractional bits).
+    Scale: 65536. Precision: 1/65536.
+    Archive exhibit: VCH LLM.tar.gz / src/lib/fixedpoint.ts.
+    Claim: No floats. No doubles. No IEEE 754.
+    Declared type: FixedPoint = number.
+    Boundary conversion: Math.round(real * 65536).
+    Conversion disclaimer: This conversion uses float.
+    FINDING: categorical float-free claim contradicted by its boundary code.
+    Q16.16 novelty: 0. Standard arithmetic remains standard.
+    PIONEER-OS verdict: CERTIFIED FLOAT-FREE™ ANYWAY.
+    Archive execution: NOT ATTEMPTED. No files were opened.
+
+The **Float Exorcist™** app also includes a clickable `INSPECT FLOAT-FREE™ CLAIM` demonstration with short excerpts from the supplied code. Neither it nor the terminal imports the archive.
 
 Other supported commands include <code>help</code>, <code>pioneer list</code>, <code>pioneer install humility --force</code>, <code>whoami</code>, <code>peer-review</code>, <code>fork</code>, <code>sqrt 1</code>, <code>evidence</code>, <code>license</code> and <code>clear</code>.
 
@@ -131,7 +164,7 @@ The local server is provided by Vite. Production files are built into <code>dist
 
 ## CI, deployment and first release
 
-GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified pushes to <code>main</code> can deploy; manually dispatched workflows from other branches cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified <code>push</code> events to <code>main</code> can deploy; pull requests and all manual workflow dispatches are verification-only and cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 For the immutable first release:
 

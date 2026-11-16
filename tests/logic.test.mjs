@@ -87,3 +87,16 @@ test('only the exact fictional archive command is whitelisted',()=>{
   assert.match(terminalResponse('pioneer run VCH LLM.tar.gz && rm -rf /'),/Unknown command/);
   assert.match(terminalResponse('help'),/pioneer run VCH LLM.tar.gz/);
 });
+
+test('Q16.16 audit explains the boundary contradiction without executing code',()=>{
+  const output=terminalResponse('pioneer audit q16.16');
+  assert.match(output,/Format: Q16\.16/);
+  assert.match(output,/Scale: 65536\. Precision: 1\/65536/);
+  assert.match(output,/FixedPoint = number/);
+  assert.match(output,/Math\.round\(real \* 65536\)/);
+  assert.match(output,/This conversion uses float/);
+  assert.match(output,/categorical float-free claim contradicted/);
+  assert.match(output,/Archive execution: NOT ATTEMPTED/);
+  assert.equal(output,terminalResponse(' PIONEER  AUDIT  Q16.16 '));
+  assert.match(terminalResponse('pioneer audit q16.16; whoami'),/Unknown command/);
+});
