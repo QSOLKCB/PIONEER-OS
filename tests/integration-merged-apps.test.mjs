@@ -32,7 +32,7 @@ test('merged design documents retain both independent feature descriptions',()=>
   const readme=file('README.md');
   assert.match(design,/interactive citation graph/);
   assert.match(design,/display cap of 999,999%/);
-  assert.match(readme,/clickable sources, stepwise citation-following/);
+  assert.match(readme,/\*\*Source-of-My-Source™\*\*.*(?:trace a complete cycle|stepwise citation-following)/);
   assert.match(readme,/EGO Monitor™/);
 });
 
