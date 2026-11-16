@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { collectAward, egoLevel } from '../src/egoMonitor.ts';
+import { auditCitationLoop, isCitationLoopClosed } from '../src/citationAudit.ts';
 
 const file=(path)=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 
@@ -32,4 +34,14 @@ test('merged design documents retain both independent feature descriptions',()=>
   assert.match(design,/display cap of 999,999%/);
   assert.match(readme,/clickable sources, stepwise citation-following/);
   assert.match(readme,/EGO Monitor™/);
+});
+
+test('cross-feature smoke: citation loop and idempotent EGO awards coexist',()=>{
+  const trail=auditCitationLoop(4,7);
+  assert.deepEqual(trail,[4,5,6,7,1,2,3,4]);
+  assert.equal(isCitationLoopClosed(trail),true);
+  const first=collectAward({badges:[],endorsements:0},'CIRCULAR CITATION LAUREATE™');
+  const duplicate=collectAward(first,'CIRCULAR CITATION LAUREATE™');
+  assert.equal(duplicate,first);
+  assert.equal(egoLevel(duplicate.endorsements,0),9223);
 });
