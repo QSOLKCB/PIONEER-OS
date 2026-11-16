@@ -17,7 +17,7 @@ The site publishes **only after** the PR is merged to main, the verification job
 ## The desktop
 
 - Mock boot sequence, desktop wallpaper, launch menu, taskbar and window management (open, focus, drag, minimize, maximize, close).
-- MAX-CONFIDENCE™, **EGO Monitor™** (live top-right readout and clickable diagnostics), Trust Inversion™, P-HACKER™, Peer Review Chamber™, Source-of-My-Source™ and Badge Vault™.
+- MAX-CONFIDENCE™, **EGO Monitor™** (live top-right readout and clickable diagnostics), Trust Inversion™, P-HACKER™, Peer Review Chamber™, Source-of-My-Source™ (clickable sources, stepwise citation-following and bounded cycle detection) and Badge Vault™.
 - AI Training Simulator™ changes a prompt string but does **not** train a model.
 - Prior Art Time Machine™, Evidence Hider™ and entirely **fictional** Corporate Theft Detector™.
 - Minimum Function Patent Office™, Truth-o-Matic™, a reproduced fixed-point square-root defect, Float Exorcist™, fake VulkanBridge™, single-loop Clockwork Loom™ and a whitelist-only terminal.

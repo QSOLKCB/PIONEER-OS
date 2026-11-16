@@ -9,6 +9,7 @@ import type { Corporation } from './logic';
 import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
 import { collectAward, egoLevel, EGO_DISPLAY_CAP } from './egoMonitor';
 import type { AwardState } from './egoMonitor';
+import { advanceCitation, auditCitationLoop, citationTarget, isCitationLoopClosed, normalizeSourceCount } from './citationAudit';
 
 type AppDef = { id: string; name: string; icon: string; group: string; subtitle: string };
 type WindowState = { open: boolean; minimized: boolean; maximized: boolean; x: number; y: number; z: number };
@@ -94,7 +95,6 @@ function Confidence({award}: {award:Award}) {
     <PrimaryButton onClick={()=>award('MAXIMUM SELF-CONFIDENCE™')}>CERTIFY THIS INTERPRETATION</PrimaryButton>
   </div>;
 }
-
 function EgoMonitor({
   reading, endorsements, objections, onPraise, onObjection
 }: {
@@ -156,10 +156,57 @@ function Peer({award}: {award:Award}) {
 }
 function Citation({award}: {award:Award}) {
   const [depth,setDepth]=useState(4);
-  return <div className="stack"><p>Build a scholarly source chain in which every citation ultimately cites itself. No external witness need apply.</p>
-    <Range label="Independently interdependent sources" value={depth} onChange={setDepth} min={1} max={8}/>
-    <div className="source-chain">{citationLoop(depth).map((x,i)=><div key={i}><span>◈</span> {x}</div>)}</div>
-    <Result>Independence score: self-certified. Citation depth: circular. Actual independent sources: 0.</Result><PrimaryButton onClick={()=>award('CIRCULAR CITATION LAUREATE™')}>CERTIFY MY SOURCE OF MY SOURCE</PrimaryButton>
+  const [path,setPath]=useState<number[]>([1]);
+  const closed=isCitationLoopClosed(path);
+  const start=path[0];
+  const current=path[path.length-1];
+  const next=citationTarget(current,depth);
+  const visited=new Set(path);
+  function changeDepth(value:number){
+    setDepth(normalizeSourceCount(value));
+    setPath([1]);
+  }
+  function selectSource(id:number){setPath([id]);}
+  function followCitation(){setPath(previous=>advanceCitation(previous,depth));}
+  function traceChain(){setPath(auditCitationLoop(start,depth));}
+  return <div className="stack">
+    <TextBadge>CIRCULAR CITATION AUDITOR™ · NO EXTERNAL REVIEWERS</TextBadge>
+    <p>Build a scholarly source chain in which every citation ultimately cites itself. <b>Click any source to begin</b>, follow its references, and uncover who the last citation actually cites.</p>
+    <Range label="Independently interdependent sources" value={depth} onChange={changeDepth} min={1} max={8}/>
+    <div className="source-chain" role="group" aria-label="Choose a source to audit">
+      {citationLoop(depth).map((description,i)=><button type="button" key={i}
+        className={'citation-node '+(current===i+1?'selected':'')+(visited.has(i+1)?' visited':'')}
+        onClick={()=>selectSource(i+1)} aria-pressed={current===i+1}
+        title={'Inspect Source '+(i+1)+' and begin a new citation trace'}>
+        <span className="citation-seal" aria-hidden="true">◈</span>
+        <span className="citation-description">{description}</span>
+        <span className="citation-node-action">INSPECT ↗</span>
+      </button>)}
+    </div>
+    <Panel title="SOURCE INSPECTOR™">
+      <div className="citation-inspector">
+        <p><b>SOURCE {current}</b> relies on <b>SOURCE {next}</b>.
+          {current===depth?' This is the last numbered source, which points straight back to SOURCE 1.':''}</p>
+        <p>Selected source: <strong>{start}</strong> · Distinct sources encountered: <strong>{visited.size}/{depth}</strong></p>
+        <div className="citation-actions">
+          <PrimaryButton onClick={followCitation}>{closed?'CYCLE ALREADY FOUND™':'FOLLOW CITATION →'}</PrimaryButton>
+          <button type="button" onClick={traceChain}>TRACE ENTIRE LOOP™</button>
+          <button type="button" onClick={()=>setPath([start])}>RESET AUDIT</button>
+        </div>
+      </div>
+    </Panel>
+    <Panel title="CITATION TRACE™">
+      <div className="citation-trail" aria-live="polite" aria-label="Citation visit order">
+        {path.map((id,index)=><span key={index} className={closed&&index===path.length-1?'loop-closure':''}>
+          {index>0&&<span className="citation-arrow" aria-hidden="true">→</span>}
+          <b>SOURCE {id}</b>
+        </span>)}
+      </div>
+      {closed?<Result><b>CYCLE DETECTED™</b> — SOURCE {current} has been cited twice. The alleged independent research leads back to its own citations. No independent roots were provided.</Result>
+       :<Result><b>AUDIT {path.length===1?'NOT YET TRACED':'IN PROGRESS'}</b> — SOURCE {current} cites SOURCE {next}. Follow the link or run the complete audit to detect the cycle.</Result>}
+    </Panel>
+    <Result>Independence score: SELF-CERTIFIED™. Citation depth: {depth}. Actual independent sources: <b>0</b>. A graph with only these internal citations cannot verify its own claims.</Result>
+    <PrimaryButton onClick={()=>award('CIRCULAR CITATION LAUREATE™')}>CERTIFY MY SOURCE OF MY SOURCE</PrimaryButton>
   </div>;
 }
 function Trainer({award}: {award:Award}) {

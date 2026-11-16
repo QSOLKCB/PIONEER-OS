@@ -19,7 +19,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 3. Trust Inversion — user witnesses rejected, system self-review accepted.
 4. P-HACKER — invented p-value formula, with explicit warning.
 5. Peer-Reviewed-By-Me — three reviewer chairs filled by me, myself and I.
-6. Source-of-My-Source — citation cycle that returns to itself.
+6. Source-of-My-Source — interactive citation graph: select any numbered source, follow its reference one hop at a time, run a full deterministic bounded audit, and inspect the first repeated source. Internal cross-citations never count as independent evidence; changing graph depth resets the audit.
 7. AI Training Simulator — edits prompt text, modifies exactly zero neural weights.
 8. Prior Art Time Machine — compares actual date ordering, assigns fictional retroactive ownership.
 9. Corporate Theft Detector — entirely fictional company-themed satire, not a factual accusation.
