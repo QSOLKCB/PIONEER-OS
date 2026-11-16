@@ -75,7 +75,7 @@ export function terminalResponse(raw: string): string {
     '  pioneer install self-validation',
     '  pioneer list',
     '  pioneer run VCH LLM.tar.gz',
-    'All installation and execution messages are fictional. No files are opened or run.'
+    'All commands are fictional. No packages are installed. No files are opened or run.'
   ].join('\n');
   if (cmd === 'pioneer install humility') return [
     'Resolving dependencies...',
