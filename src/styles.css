@@ -38,7 +38,10 @@ a{color:#f1c77a}
 .tasks button.active{border-color:#ad834b;color:#fff;background:#352b1f}
 .tasks button span{overflow:hidden;text-overflow:ellipsis}
 .disclaimer{position:absolute;bottom:0;left:0;right:0;height:16px;background:#03080b;color:#839194;text-align:center;line-height:16px;letter-spacing:.12em;font-size:8px;z-index:250}
+.window-layer{position:absolute;inset:0;z-index:40;isolation:isolate;pointer-events:none}
+.window-layer>.window{pointer-events:auto}
 .window{position:absolute;width:min(840px,calc(100vw - 115px));height:min(660px,calc(100dvh - 135px));min-height:250px;background:#111c20f9;box-shadow:0 25px 75px #000b,0 0 0 1px #53615f;border:1px solid #69736a;border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
+.window[hidden]{display:none!important}
 .window.maximized{position:absolute;inset:59px 7px 70px 87px;width:auto;height:auto}
 .titlebar{height:61px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 13px 0 16px;background:linear-gradient(#263437,#192528);border-bottom:1px solid #475154;touch-action:none;user-select:none;cursor:grab}
 .titlebar:active{cursor:grabbing}

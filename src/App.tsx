@@ -6,6 +6,7 @@ import {
   trustInversion
 } from './logic';
 import type { Corporation } from './logic';
+import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
 
 type AppDef = { id: string; name: string; icon: string; group: string; subtitle: string };
 type WindowState = { open: boolean; minimized: boolean; maximized: boolean; x: number; y: number; z: number };
@@ -293,6 +294,7 @@ export default function App() {
   const [badges,setBadges]=useState<string[]>([]);
   const [quote,setQuote]=useState(0);
   const [clock,setClock]=useState('');
+  const [viewport,setViewport]=useState(()=>({width:window.innerWidth,height:window.innerHeight}));
   const order=useRef(20);
   const drag=useRef<{id:string;sx:number;sy:number;x:number;y:number}|null>(null);
   const [windows,setWindows]=useState<Record<string,WindowState>>({
@@ -307,6 +309,11 @@ export default function App() {
     return ()=>{window.clearTimeout(bootTimer);window.clearInterval(tick);};
   },[]);
   useEffect(()=>{const id=window.setInterval(()=>setQuote(x=>(x+1)%quotes.length),8500);return()=>window.clearInterval(id);},[]);
+  useEffect(()=>{
+    const resize=()=>setViewport({width:window.innerWidth,height:window.innerHeight});
+    window.addEventListener('resize',resize);
+    return ()=>window.removeEventListener('resize',resize);
+  },[]);
 
   function focus(id:string) {
     const z=++order.current;
@@ -316,11 +323,11 @@ export default function App() {
     const idx=apps.findIndex(a=>a.id===id);
     if(idx<0)return;
     const z=++order.current;
-    setWindows(prev=>({
-      ...prev,
-      [id]: {open:true,minimized:false,maximized:prev[id]?.maximized||false,
-        x:prev[id]?.x??(125+(idx%7)*28),y:prev[id]?.y??(90+(idx%6)*23),z}
-    }));
+    setWindows(prev=>{
+      const pos=fitWindowPosition(prev[id]?.x??(125+(idx%7)*28),prev[id]?.y??(90+(idx%6)*23),viewport.width,viewport.height);
+      return {...prev,[id]:{open:true,minimized:false,maximized:prev[id]?.maximized||false,
+        x:pos.x,y:pos.y,z}};
+    });
     setMenu(false);
   }
   function mutateWindow(id:string,changes:Partial<WindowState>) {
@@ -330,16 +337,16 @@ export default function App() {
     if((event.target as HTMLElement).closest('button'))return;
     const item=windows[id];
     if(!item||item.maximized)return;
-    drag.current={id,sx:event.clientX,sy:event.clientY,x:item.x,y:item.y};
+    const pos=fitWindowPosition(item.x,item.y,viewport.width,viewport.height);
+    drag.current={id,sx:event.clientX,sy:event.clientY,x:pos.x,y:pos.y};
     event.currentTarget.setPointerCapture(event.pointerId);
     focus(id);
   }
   function moveDrag(event:ReactPointerEvent<HTMLDivElement>) {
     const d=drag.current;
     if(!d)return;
-    const x=Math.max(0,Math.min(window.innerWidth-125,d.x+event.clientX-d.sx));
-    const y=Math.max(42,Math.min(window.innerHeight-100,d.y+event.clientY-d.sy));
-    setWindows(prev=>({...prev,[d.id]:{...prev[d.id],x,y}}));
+    const pos=fitWindowPosition(d.x+event.clientX-d.sx,d.y+event.clientY-d.sy,viewport.width,viewport.height);
+    setWindows(prev=>({...prev,[d.id]:{...prev[d.id],x:pos.x,y:pos.y}}));
   }
   function endDrag() {drag.current=null;}
   function award(badge:string) {setBadges(prev=>prev.includes(badge)?prev:[...prev,badge]);}
@@ -363,9 +370,11 @@ export default function App() {
       <div className="filter-row">{['ALL','RESEARCH','LABORATORY','SYSTEM'].map(g=><button key={g} className={activeGroup===g?'selected':''} onClick={()=>setActiveGroup(g)}>{g}</button>)}</div>
       <div className="launcher-grid">{shown.map(a=><button key={a.id} onClick={()=>openApp(a.id)}><span>{a.icon}</span><b>{a.name}</b><small>{a.subtitle}</small></button>)}</div></div>}
 
-    {apps.filter(a=>windows[a.id]?.open).map(a=>{
-      const w=windows[a.id];if(!w||w.minimized)return null;
-      return <section key={a.id} className={'window '+(w.maximized?'maximized':'')} role="dialog" aria-label={a.name} style={{left:w.maximized?undefined:w.x,top:w.maximized?undefined:w.y,zIndex:w.z}} onPointerDown={()=>focus(a.id)}>
+    <div className="window-layer" aria-label="Application windows">
+    {apps.filter(a=>shouldMountWindow(windows[a.id])).map(a=>{
+      const w=windows[a.id];if(!w)return null;
+      const pos=fitWindowPosition(w.x,w.y,viewport.width,viewport.height);
+      return <section key={a.id} hidden={w.minimized} className={'window '+(w.maximized?'maximized':'')} role="dialog" aria-label={a.name} style={{left:w.maximized?undefined:pos.x,top:w.maximized?undefined:pos.y,zIndex:w.z}} onPointerDown={()=>focus(a.id)}>
         <div className="titlebar" onPointerDown={e=>beginDrag(e,a.id)} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
           <div className="window-title"><span className="win-icon">{a.icon}</span><span>{a.name}<small>{a.subtitle}</small></span></div><div className="window-controls"><button type="button" title="Minimize" aria-label={'Minimize '+a.name} onClick={()=>mutateWindow(a.id,{minimized:true})}>−</button><button type="button" title="Maximize or restore" aria-label={'Maximize or restore '+a.name} onClick={()=>mutateWindow(a.id,{maximized:!w.maximized})}>□</button><button type="button" title="Close" aria-label={'Close '+a.name} onClick={()=>mutateWindow(a.id,{open:false})}>×</button></div>
         </div>
@@ -373,6 +382,7 @@ export default function App() {
         <div className="window-foot"><span>◈ SELF-CERTIFIED OPERATING ENVIRONMENT</span><span>WINDOW #{String(apps.indexOf(a)+1).padStart(2,'0')} · NO PROOF IMPLIED</span></div>
       </section>;
     })}
+    </div>
     <footer className="taskbar"><button className="start" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Open all applications"><span>✦</span> APPLICATIONS</button><div className="tasks">{apps.filter(a=>windows[a.id]?.open).map(a=><button key={a.id} className={!windows[a.id].minimized?'active':''} onClick={()=>windows[a.id].minimized?mutateWindow(a.id,{minimized:false,z:++order.current}):mutateWindow(a.id,{minimized:true})} title={a.name}>{a.icon}<span>{a.name}</span></button>)}</div><button className="badge-count" onClick={()=>openApp('badges')}>★ {badges.length} BADGES</button></footer>
     <div className="disclaimer">PARODY / BROWSER DEMO — MOCK VERDICTS ARE FICTION · REAL SOURCE RECORDS ARE LABELLED</div>
   </div>;
