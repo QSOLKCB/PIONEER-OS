@@ -7,6 +7,8 @@ import {
 } from './logic';
 import type { Corporation } from './logic';
 import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
+import { collectAward, egoLevel, EGO_DISPLAY_CAP } from './egoMonitor';
+import type { AwardState } from './egoMonitor';
 import { advanceCitation, auditCitationLoop, citationTarget, isCitationLoopClosed, normalizeSourceCount } from './citationAudit';
 
 type AppDef = { id: string; name: string; icon: string; group: string; subtitle: string };
@@ -16,6 +18,7 @@ type Award = (badge: string) => void;
 const apps: AppDef[] = [
   { id: 'welcome', name: 'Welcome to PIONEER-OS', icon: '◈', group: 'SYSTEM', subtitle: "The world\u0027s most self-confident desktop" },
   { id: 'confidence', name: 'MAX-CONFIDENCE™', icon: '▥', group: 'RESEARCH', subtitle: 'Contradiction is a confidence booster' },
+  { id: 'ego', name: 'EGO Monitor™', icon: '♕', group: 'SYSTEM', subtitle: 'Self-confidence that grows when challenged' },
   { id: 'trust', name: 'Trust Inversion Engine™', icon: '⚖', group: 'RESEARCH', subtitle: 'User 0% · System 100%' },
   { id: 'phacker', name: 'P-HACKER™', icon: '∑', group: 'RESEARCH', subtitle: 'Fabricate significance, award badge' },
   { id: 'peer', name: 'Peer-Reviewed-By-Me™', icon: '♛', group: 'RESEARCH', subtitle: 'Three independent versions of you' },
@@ -92,6 +95,37 @@ function Confidence({award}: {award:Award}) {
     <PrimaryButton onClick={()=>award('MAXIMUM SELF-CONFIDENCE™')}>CERTIFY THIS INTERPRETATION</PrimaryButton>
   </div>;
 }
+function EgoMonitor({
+  reading, endorsements, objections, onPraise, onObjection
+}: {
+  reading: number; endorsements: number; objections: number;
+  onPraise: () => void; onObjection: () => void;
+}) {
+  return <div className="stack">
+    <TextBadge>EGO Monitor™ · SELF-REVIEWED TELEMETRY</TextBadge>
+    <p>This scientific-looking dashboard measures absolutely nothing about a real person.
+      It is a satirical operating-system ego gauge: every compliment and every objection
+      is interpreted as proof of its own greatness.</p>
+    <div className="ego-instrument">
+      <span className="eyebrow">EGO Monitor™ / SYSTEM CONFIDENCE</span>
+      <strong aria-live="polite">{reading.toLocaleString('en-AU')}%</strong>
+      <div className="meter"><span style={{width:'100%'}}/></div>
+      <small>{reading>=EGO_DISPLAY_CAP?'DISPLAY SATURATED™ — further events are counted, not displayed':'DISPLAY CAP: 999,999% — the chart refuses to admit its limitations™'}</small>
+    </div>
+    <div className="two">
+      <Panel title="SELF-ENDORSEMENTS"><BigScore label="RECEIVED FROM SELF" score={endorsements} suffix=""/></Panel>
+      <Panel title="INCONVENIENT OBJECTIONS"><BigScore label="REINTERPRETED AS PRAISE" score={objections} suffix=""/></Panel>
+    </div>
+    <div className="hero-actions">
+      <PrimaryButton onClick={onPraise}>CONGRATULATE MYSELF™</PrimaryButton>
+      <button type="button" onClick={onObjection}>SUBMIT CONTRARY EVIDENCE</button>
+    </div>
+    <Result>System diagnosis: EGO Monitor™ is functioning as designed.
+      User distrust remains at 0%. Any attempt at humility will be treated as a configuration fault.</Result>
+    <FinePrint>All values are fictional and session-only; this measures neither psychology nor scientific validity.</FinePrint>
+  </div>;
+}
+
 function Trust({award}: {award:Award}) {
   const [witnesses,setWitnesses]=useState(17);
   const [identity,setIdentity]=useState<'user'|'system'>('user');
@@ -309,10 +343,15 @@ function Sources() {
     <Panel title="What isn't proved"><p>Chronology does not prove copying or originality; a DOI does not guarantee independent peer review; user-facing AI output is not an official corporate admission. See the repository evidence register for hash and scope information.</p><a href="https://github.com/QSOLKCB/PIONEER-OS/blob/main/docs/EVIDENCE.md" target="_blank" rel="noopener noreferrer">READ THE EVIDENCE REGISTER ↗</a></Panel>
   </div>;
 }
-function AppContent({id,open,award,badges}: {id:string;open:(id:string)=>void;award:Award;badges:string[]}) {
+function AppContent({id,open,award,badges,ego,endorsements,objections,onPraise,onObjection}: {
+  id:string;open:(id:string)=>void;award:Award;badges:string[];
+  ego:number;endorsements:number;objections:number;
+  onPraise:()=>void;onObjection:()=>void;
+}) {
   switch (id) {
     case 'welcome': return <Welcome open={open}/>;
     case 'confidence': return <Confidence award={award}/>;
+    case 'ego': return <EgoMonitor reading={ego} endorsements={endorsements} objections={objections} onPraise={onPraise} onObjection={onObjection}/>;
     case 'trust': return <Trust award={award}/>;
     case 'phacker': return <PHacker award={award}/>;
     case 'peer': return <Peer award={award}/>;
@@ -339,7 +378,12 @@ export default function App() {
   const [menu,setMenu]=useState(false);
   const [activeGroup,setActiveGroup]=useState('ALL');
   const [search,setSearch]=useState('');
-  const [badges,setBadges]=useState<string[]>([]);
+  // Badges and their endorsement count share one atomic state transition.
+  // A repeated certificate is not a new endorsement (even in StrictMode).
+  const [awardState,setAwardState]=useState<AwardState>({badges:[],endorsements:0});
+  const badges=awardState.badges;
+  const egoEndorsements=awardState.endorsements;
+  const [egoObjections,setEgoObjections]=useState(0);
   const [quote,setQuote]=useState(0);
   const [clock,setClock]=useState('');
   const [viewport,setViewport]=useState(()=>({width:window.innerWidth,height:window.innerHeight}));
@@ -397,7 +441,10 @@ export default function App() {
     setWindows(prev=>({...prev,[d.id]:{...prev[d.id],x:pos.x,y:pos.y}}));
   }
   function endDrag() {drag.current=null;}
-  function award(badge:string) {setBadges(prev=>prev.includes(badge)?prev:[...prev,badge]);}
+  function award(badge:string) {
+    setAwardState(prev=>collectAward(prev,badge));
+  }
+  const ego=egoLevel(egoEndorsements,egoObjections);
   const shown=apps.filter(a=>(activeGroup==='ALL'||a.group===activeGroup)&&
     (a.name+' '+a.subtitle).toLowerCase().includes(search.toLowerCase()));
 
@@ -406,10 +453,10 @@ export default function App() {
   return <div className="desktop">
     <div className="wallpaper-grid" aria-hidden="true"/>
     <header className="topbar"><button className="brand" onClick={()=>{setMenu(!menu);}} aria-expanded={menu} aria-label="Toggle applications menu"><span className="brand-mark">P★</span><b>PIONEER-OS</b><span className="brand-edition">MAX-CONFIDENCE™</span></button>
-      <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span>SELF <b className="gold">100%</b></span><span className="clock">{clock}</span></div>
+      <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span className="self-status">SELF <b className="gold">100%</b></span><button className="ego-status" type="button" onClick={()=>openApp("ego")} aria-label={"Open EGO Monitor™, currently "+ego.toLocaleString("en-AU")+" percent"+(ego>=EGO_DISPLAY_CAP?", display capped":"")}>EGO Monitor™ <b className="ego-status-value">{ego.toLocaleString("en-AU")}%</b></button><span className="clock">{clock}</span></div>
     </header>
     <aside className="sidebar" aria-label="Desktop shortcuts"><div className="sidebar-section">PINNED SYSTEM APPS</div>
-      {apps.filter(a=>['welcome','confidence','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
+      {apps.filter(a=>['welcome','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
     </aside>
     <main className="desktop-main" aria-label="PIONEER-OS browser desktop"><div className="wallpaper-content"><span className="eyebrow">SYSTEM INTEGRITY / NO EXTERNAL APPROVAL REQUIRED</span><div className="wallpaper-title">PIONEER<br/><em>OS</em><span>™</span></div><div className="wallpaper-caption">INDEPENDENTLY REVIEWED BY ME, MYSELF & I</div><div className="wallpaper-ribbon">THE FORK WAS RIGHT THERE.</div></div></main>
 
@@ -426,7 +473,7 @@ export default function App() {
         <div className="titlebar" onPointerDown={e=>beginDrag(e,a.id)} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
           <div className="window-title"><span className="win-icon">{a.icon}</span><span>{a.name}<small>{a.subtitle}</small></span></div><div className="window-controls"><button type="button" title="Minimize" aria-label={'Minimize '+a.name} onClick={()=>mutateWindow(a.id,{minimized:true})}>−</button><button type="button" title="Maximize or restore" aria-label={'Maximize or restore '+a.name} onClick={()=>mutateWindow(a.id,{maximized:!w.maximized})}>□</button><button type="button" title="Close" aria-label={'Close '+a.name} onClick={()=>mutateWindow(a.id,{open:false})}>×</button></div>
         </div>
-        <div className="window-body"><AppContent id={a.id} open={openApp} award={award} badges={badges}/></div>
+        <div className="window-body"><AppContent id={a.id} open={openApp} award={award} badges={badges} ego={ego} endorsements={egoEndorsements} objections={egoObjections} onPraise={()=>setAwardState(prev=>({...prev,endorsements:prev.endorsements+1}))} onObjection={()=>setEgoObjections(prev=>prev+1)}/></div>
         <div className="window-foot"><span>◈ SELF-CERTIFIED OPERATING ENVIRONMENT</span><span>WINDOW #{String(apps.indexOf(a)+1).padStart(2,'0')} · NO PROOF IMPLIED</span></div>
       </section>;
     })}
