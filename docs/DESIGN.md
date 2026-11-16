@@ -7,6 +7,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 - Industrial charcoal, gold authority badges, simulated vintage technical control room.
 - Ceremonial boot splash; app launcher, windows, taskbar, pin shortcuts and system status.
 - The persistent joke is a **trust inversion**: 0% user trust, 100% self trust, regardless of actual inputs.
+- **EGO Monitor™** sits between SELF 100% and the actual clock. Its fictional reading begins at 9,001% and rises with every awarded self-certificate or submitted objection. Clicking its status readout opens an interactive diagnosis window. No value purports to assess a real person.
 - Opening, closing, dragging, minimizing and maximizing works on desktop; responsive fallback stacks windows on narrow screens.
 - Source records appear in a separate, accurate source inspector so fabricated badges are never passed off as facts.
 
@@ -14,6 +15,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 
 1. Welcome Desk — OS certifies itself.
 2. MAX-CONFIDENCE — contradictions increase fake confidence.
+2a. EGO Monitor™ — system ego increases from self-praise and objections, never decreases.
 3. Trust Inversion — user witnesses rejected, system self-review accepted.
 4. P-HACKER — invented p-value formula, with explicit warning.
 5. Peer-Reviewed-By-Me — three reviewer chairs filled by me, myself and I.
