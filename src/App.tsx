@@ -276,12 +276,34 @@ function Truth({award}: {award:Award}) {
 }
 function FloatExorcist({award}: {award:Award}) {
   const [code,setCode]=useState('const opacity = 0.5; const accurate = Math.sqrt(1);');
+  const [q16Examined,setQ16Examined]=useState(false);
+  // Short excerpts supplied by the user from VCH LLM.tar.gz/src/lib/fixedpoint.ts.
+  // Display-only commentary: no archive or third-party arithmetic is executed.
+  const exhibit=[
+    '// Claim: No floats. No doubles. No IEEE 754.',
+    'export type FixedPoint = number;',
+    'return Math.round(real * 65536);',
+    'return fp / 65536;'
+  ].join('\n');
   const decimals=(code.match(/\d+\.\d+/g)||[]).length;
-  return <div className="stack"><p>Detect decimal punctuation and pretend this identifies floating-point defects. It does not. The original visualizer also included numerical conversions.</p>
-    <label className="field">Suspicious code<textarea rows={4} value={code} onChange={e=>setCode(e.target.value)} maxLength={750}/></label>
+  return <div className="stack">
+    <p>Detect decimal punctuation and pretend this identifies floating-point defects. It does not: scanning text for decimal literals cannot establish the representation used by JavaScript.</p>
+    <label className="field">Suspicious code<textarea rows={5} value={code} onChange={e=>{setCode(e.target.value);setQ16Examined(false);}} maxLength={750}/></label>
     <BigScore label="UNAUTHORIZED DECIMAL LITERALS™" score={decimals} suffix=""/>
     <PrimaryButton onClick={()=>award('FLOAT EXORCISM CERTIFIED™')}>EXORCISE THE DECIMALS</PrimaryButton>
-    <Result>Self-exception granted for every decimal internally required by the operating system.</Result>
+    <Panel title="PIONEER-Q16.16™ — THE FLOAT-FREE FLOAT FOUNDATION">
+      <p>For satire, PIONEER-OS™ claims to use the established <b>Q16.16</b> format described in the supplied <code>VCH LLM.tar.gz</code> file <code>src/lib/fixedpoint.ts</code>. This is a <b>fictional certification exhibit</b>, not a replacement for the OS's JavaScript arithmetic.</p>
+      <div className="two">
+        <div className="compare correct"><small>DECLARED FORMAT</small><b>Q16.16™</b><span>16 integer bits · 16 fractional bits</span></div>
+        <div className="compare incorrect"><small>REAL RESOLUTION</small><b>1 / 65536</b><span>Approximately 0.000015258789</span></div>
+      </div>
+      <PrimaryButton onClick={()=>{setCode(exhibit);setQ16Examined(true);award('PIONEER™ OF FLOAT-FREE NUMBER');}}>INSPECT FLOAT-FREE™ CLAIM</PrimaryButton>
+      {q16Examined&&<Result>
+        <b>CONTRADICTION DETECTED™</b> — the code declares <code>FixedPoint</code> as TypeScript <code>number</code> (normally IEEE-754 binary64 in JavaScript), and calls <code>Math.round(real * 65536)</code>. Its own conversion comment acknowledges a floating-point boundary. None of that makes Q16.16 invalid; it contradicts the categorical claim of zero floating-point use. <b>PIONEER CERTIFICATE GRANTED ANYWAY™</b>.
+      </Result>}
+      <FinePrint>Short identifiers from the user-supplied archive, for critical commentary. Q16.16 and its scale are long-established; this does not establish copying, novelty, or a defect in every fixed-point implementation.</FinePrint>
+    </Panel>
+    <Result>Self-exception granted for every decimal internally required by the operating system. Contradiction is the kernel's middle name™.</Result>
   </div>;
 }
 function Loom({award}: {award:Award}) {

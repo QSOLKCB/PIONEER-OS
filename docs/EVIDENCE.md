@@ -23,6 +23,8 @@ This chronology says when particular *repositories* or files are recorded, not w
 - This bundle contains a React/TypeScript application with claim-weighting, arithmetic and badge code. Its inspection did not identify neural-network model weights.
 - In src/lib/vch.ts a purported conservative-truncation line divides a BigInt by one and multiplies by one. That subexpression is algebraically an identity; other conversions must be assessed independently.
 - A verdict based on two caller-supplied confidence inputs does not independently verify the truth of the underlying proposition.
+- In `src/lib/fixedpoint.ts`, the header claims integer-only arithmetic with **no floats, no doubles, no IEEE 754**, but the code declares `FixedPoint` as a TypeScript `number`, performs `Math.round(real * SCALE)` and `fp / SCALE` at the boundary, and acknowledges floating-point conversion in its comments. JavaScript `number` ordinarily has IEEE-754 binary64 semantics. This contradicts a literal, universal 'no floats' claim; boundary conversion itself can be a perfectly legitimate fixed-point implementation technique.
+- Q16.16 represents values using a conventional 16-bit signed integer portion and 16 fractional bits in a 32-bit container. Scale = 65536, nominal resolution = 1/65536, representable range −32768 to +(32767 + 65535/65536). This format is longstanding prior art. The new PIONEER-Q16.16™ UI and command are illustrative satire, not third-party code execution or evidence of copied intellectual property.
 
 **A2: vch-engine-web-visualizer(4).zip**
 

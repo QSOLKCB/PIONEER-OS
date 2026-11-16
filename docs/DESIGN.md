@@ -27,10 +27,10 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 11. Minimum Patent Office — takes the minimum of two numbers, awards a fake patent.
 12. Reality Adjustment Calculator — contrasts proper square roots with the specific uploaded implementation's reproducible wrong outputs.
 13. Truth-o-Matic — high claimant-provided ratings do not prove a proposition.
-14. Float Exorcist — treats decimal literals as demons.
+14. Float Exorcist — treats decimal literals as demons; its PIONEER-Q16.16™ exhibit exposes the contradiction between 'no floats' and a TypeScript `number` with floating-point boundary conversion. The exhibit displays brief user-supplied excerpts, not the underlying third-party arithmetic implementation.
 15. Clockwork Loom — 32 virtual core labels powered by a single loop.
 16. VulkanBridge — decorative CSS effects, no GPU backend.
-17. Pioneer Terminal — safe whitelist-only joke commands, no shell execution. Humility Package Manager™ simulates `pioneer install humility`, rejects a fictional ego-monitor dependency conflict (including `--force`), and offers `pioneer install self-validation` to award 47 imaginary certificates with zero independent reviewers. All outputs are pure strings; no packages are installed. `pioneer run VCH LLM.tar.gz` is a case-insensitive, exact-match parody command that **never reads or executes the archive**; its scripted output ends with the exact phrase `Bug detected, no new maths`.
+17. Pioneer Terminal — safe whitelist-only joke commands, no shell execution. `pioneer audit q16.16` displays a scripted finding about the user-provided `src/lib/fixedpoint.ts`; it never opens or executes the archive. Humility Package Manager™ simulates `pioneer install humility`, rejects a fictional ego-monitor dependency conflict (including `--force`), and offers `pioneer install self-validation` to award 47 imaginary certificates with zero independent reviewers. All outputs are pure strings; no packages are installed. `pioneer run VCH LLM.tar.gz` is a case-insensitive, exact-match parody command that **never reads or executes the archive**; its scripted output ends with the exact phrase `Bug detected, no new maths`.
 18. Badge Vault — collects fictional awards in ephemeral React state.
 19. Evidence & Source Register — real links with epistemic boundaries.
 

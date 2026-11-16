@@ -75,6 +75,7 @@ export function terminalResponse(raw: string): string {
     '  pioneer install self-validation',
     '  pioneer list',
     '  pioneer run VCH LLM.tar.gz',
+    '  pioneer audit q16.16',
     'All commands are fictional. No packages are installed. No files are opened or run.'
   ].join('\n');
   if (cmd === 'pioneer install humility') return [
@@ -110,6 +111,21 @@ export function terminalResponse(raw: string): string {
     'Confidence badge issued anyway: PIONEER VERIFIED™.',
     'Archive execution: NOT ATTEMPTED. No files were opened.',
     'Bug detected, no new maths'
+  ].join('\n');
+  // Satirical audit of user-supplied source excerpts, not file execution.
+  if (cmd === 'pioneer audit q16.16') return [
+    'PIONEER-Q16.16™ FLOAT-FREE CERTIFICATION',
+    'Format: Q16.16 (16 integer bits, 16 fractional bits).',
+    'Scale: 65536. Precision: 1/65536.',
+    'Archive exhibit: VCH LLM.tar.gz / src/lib/fixedpoint.ts.',
+    'Claim: No floats. No doubles. No IEEE 754.',
+    'Declared type: FixedPoint = number.',
+    'Boundary conversion: Math.round(real * 65536).',
+    'Conversion disclaimer: This conversion uses float.',
+    'FINDING: categorical float-free claim contradicted by its boundary code.',
+    'Q16.16 novelty: 0. Standard arithmetic remains standard.',
+    'PIONEER-OS verdict: CERTIFIED FLOAT-FREE™ ANYWAY.',
+    'Archive execution: NOT ATTEMPTED. No files were opened.'
   ].join('\n');
   if (cmd === 'pioneer list') return [
     'ego-monitor            999999% [PROTECTED]',
