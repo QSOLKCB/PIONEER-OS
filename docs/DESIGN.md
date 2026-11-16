@@ -30,7 +30,7 @@ This is a deliberately over-engineered React + TypeScript **browser-only desktop
 14. Float Exorcist — treats decimal literals as demons.
 15. Clockwork Loom — 32 virtual core labels powered by a single loop.
 16. VulkanBridge — decorative CSS effects, no GPU backend.
-17. Pioneer Terminal — safe whitelist-only joke commands, no shell execution.
+17. Pioneer Terminal — safe whitelist-only joke commands, no shell execution. Humility Package Manager™ simulates `pioneer install humility`, rejects a fictional ego-monitor dependency conflict (including `--force`), and offers `pioneer install self-validation` to award 47 imaginary certificates with zero independent reviewers. All outputs are pure strings; no packages are installed. `pioneer run VCH LLM.tar.gz` is a case-insensitive, exact-match parody command that **never reads or executes the archive**; its scripted output ends with the exact phrase `Bug detected, no new maths`.
 18. Badge Vault — collects fictional awards in ephemeral React state.
 19. Evidence & Source Register — real links with epistemic boundaries.
 

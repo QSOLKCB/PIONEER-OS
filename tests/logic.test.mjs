@@ -35,3 +35,55 @@ test('terminal is a whitelist, never a shell', () => {
   assert.match(terminalResponse('sqrt 1'), /BUG/);
   assert.match(terminalResponse('rm -rf /'), /Unknown command/);
 });
+
+test('fictional package manager reproduces the humility conflict transcript', () => {
+  assert.equal(terminalResponse('pioneer install humility'), [
+    'Resolving dependencies...',
+    'ERROR: humility conflicts with ego-monitor.',
+    '',
+    'Attempting --force...',
+    'ERROR: ego-monitor is a protected system package.',
+    '',
+    'Suggested alternative:',
+    'pioneer install self-validation',
+  ].join('\n'));
+});
+
+test('the suggested fictional package really is a working terminal command', () => {
+  assert.equal(terminalResponse('pioneer install self-validation'),
+    'SUCCESS: 47 certificates installed.\nIndependent reviewers: 0.');
+  assert.equal(terminalResponse('  PIONEER   INSTALL   SELF-VALIDATION  '),
+    terminalResponse('pioneer install self-validation'));
+});
+
+test('force cannot uninstall the protected fictional EGO Monitor™', () => {
+  const response = terminalResponse('pioneer install humility --force');
+  assert.match(response, /protected system package/);
+  assert.match(response, /pioneer install self-validation/);
+  assert.doesNotMatch(response, /SUCCESS/);
+});
+
+test('package list and help reveal simulated commands without executing input', () => {
+  const help = terminalResponse('help');
+  assert.match(help, /pioneer install humility/);
+  assert.match(help, /No packages are installed/);
+  assert.match(terminalResponse('pioneer list'), /humility\s+blocked/);
+  assert.match(terminalResponse('pioneer install humility; rm -rf /'), /Unknown command/);
+  assert.match(terminalResponse('pioneer install self-validation && whoami'), /Unknown command/);
+});
+
+test('PIONEER runtime archive gag ends with the precise requested verdict',()=>{
+  const output=terminalResponse('pioneer run VCH LLM.tar.gz');
+  assert.ok(output.startsWith('PIONEER RUNTIME™ — SIMULATED EXECUTION ONLY'));
+  assert.match(output,/Neural-network weights loaded: 0/);
+  assert.match(output,/Archive execution: NOT ATTEMPTED/);
+  assert.equal(output.split('\n').at(-1),'Bug detected, no new maths');
+  assert.equal(output,terminalResponse('   PIONEER   RUN   "VCH LLM.tar.gz"  '));
+});
+
+test('only the exact fictional archive command is whitelisted',()=>{
+  assert.match(terminalResponse('pioneer run ../VCH LLM.tar.gz'),/Unknown command/);
+  assert.match(terminalResponse('pioneer run VCH LLM.tar.gz; whoami'),/Unknown command/);
+  assert.match(terminalResponse('pioneer run VCH LLM.tar.gz && rm -rf /'),/Unknown command/);
+  assert.match(terminalResponse('help'),/pioneer run VCH LLM.tar.gz/);
+});
