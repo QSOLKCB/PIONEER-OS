@@ -63,6 +63,8 @@ export function imaginaryTheftReport(corporation: Corporation, intensity: number
     ' appeared near ' + props[corporation] + '. ' +
     comedy.slice(0, level).join(' ') + ' Verdict: SELF-CERTIFIED™.';
 }
+import { generateTruthyVenice } from './truthyVenice';
+
 export function terminalResponse(raw: string): string {
   // Whitelisted strings only. This is NOT an actual package manager or shell.
   // Normalize whitespace so pasted commands and ordinary typing behave alike.
@@ -76,6 +78,7 @@ export function terminalResponse(raw: string): string {
     '  pioneer list',
     '  pioneer run VCH LLM.tar.gz',
     '  pioneer audit q16.16',
+    '  pioneer solve 101',
     'All commands are fictional. No packages are installed. No files are opened or run.'
   ].join('\n');
   if (cmd === 'pioneer install humility') return [
@@ -127,6 +130,19 @@ export function terminalResponse(raw: string): string {
     'PIONEER-OS verdict: CERTIFIED FLOAT-FREE™ ANYWAY.',
     'Archive execution: NOT ATTEMPTED. No files were opened.'
   ].join('\n');
+  if (cmd === 'pioneer solve 101') {
+    const result = generateTruthyVenice('101 [0,1,2]', 101, 'numerals');
+    return [
+      'TRUTHYVENICEAI™ / DETERMINISTIC BS ENGINE / v2.0.0',
+      'CERTIFICATE: ' + result.discovery,
+      'FICTIONAL CONFIDENCE: ' + result.fictionalConfidence + '%',
+      'NEURAL WEIGHTS UPDATED: 0',
+      'INDEPENDENT REVIEWERS: 0',
+      'REALITY CHECK: ' + result.realityCheck,
+      'NONCRYPTOGRAPHIC RECEIPT: ' + result.fingerprint,
+      'The numbers were right there. The evidence was not.'
+    ].join('\n');
+  }
   if (cmd === 'pioneer list') return [
     'ego-monitor            999999% [PROTECTED]',
     'self-validation        available [RECOMMENDED]',

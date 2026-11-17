@@ -1,4 +1,31 @@
-[![PIONEER-OS™ — MAX-CONFIDENCE™ Edition. We didn't invent mathematics; we gave ourselves a badge.](assets/pioneer-os-banner.svg)](https://qsolkcb.github.io/PIONEER-OS/)
+[![PIONEER-OS v2 — Now Powered by TruthyVeniceAI™](assets/pioneer-os-v2-banner.svg)](https://qsolkcb.github.io/PIONEER-OS/)
+
+<p align="center">
+  <strong>PIONEER-OS™ v2.0.0 — Now Powered by TruthyVeniceAI™</strong><br/>
+  <em>Deterministic nonsense. Reproducible certificates. Absolutely zero artificial intelligence.</em>
+</p>
+
+> [!IMPORTANT]
+> **Truthiness is not verification.** TruthyVeniceAI™ is a fictional, local, deterministic text generator built from hand-written parody fragments. It is **not connected to Venice.ai or any AI provider**, does not train or infer with model weights, makes no network requests, and makes no real intellectual-property, scientific or personal accusations. Its resemblance to a grandiose research assistant is the joke.
+
+## What's new in PIONEER-OS v2
+
+The same familiar browser desktop now offers **22 apps**, including two new exhibits:
+
+- **TruthyVeniceAI™** — supply a ridiculous breakthrough, change the seed (0–999999), select a discipline, and get a self-certified scientific bulletin with a deterministic replay receipt. Run the same normalized prompt + seed + mode twice to get the same nonsense, every time. The receipt uses a **noncryptographic 32-bit FNV-derived fingerprint**, not a SHA-256 proof.
+- **PIONEER Legacy Vault™** — opens the [original v0.1.0 release](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0), [historical source tree](https://github.com/QSOLKCB/PIONEER-OS/tree/5ad1d879971245e996bb7b67cf7f3c6d0d53f93f) and [original README](https://github.com/QSOLKCB/PIONEER-OS/blob/v0.1.0/README.md) without modifying the published version.
+
+Try the **PIONEER-101™** demo: the simulated assistant issues certificates for `101 [0,1,2]`, then displays a real arithmetic correction. One user-supplied Venice response enthusiastically claimed that decimal 101 could not divide 0, 1 or 2. **101 divides zero exactly, because 0 / 101 = 0.** Dividing 101 *by* zero is undefined; those aren't the same operation.
+
+The terminal also supports `pioneer solve 101`. It returns versioned, reproducible parody text—not arbitrary shell execution.
+
+For technical contracts and the source-scope boundary, read [docs/TRUTHYVENICE_V2.md](docs/TRUTHYVENICE_V2.md). For the legacy release details, see [docs/LEGACY_V0_1_0.md](docs/LEGACY_V0_1_0.md).
+
+**No new runtime dependencies. No actual AI. No new maths.™**
+
+---
+
+## Original PIONEER-OS™ features — carried forward from v0.1.0
 
 <p align="center">
   <strong>The operating system that distrusts everyone except itself.</strong><br/>
@@ -42,10 +69,12 @@ Inspired by the interactive [LCOS parody](https://github.com/QSOLKCB/LCOS), this
 
 ## The application catalogue
 
-All **20 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
+All **22 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
 
 | Application | Certified™ behaviour |
 | --- | --- |
+| **TruthyVeniceAI™ (v2)** | Reproducibly produces pompous, fictional scientific nonsense from a bounded prompt and seed. |
+| **PIONEER Legacy Vault™ (v2)** | Preserves links to the original immutable v0.1.0 release and source. |
 | **MAX-CONFIDENCE™** | More contradictions yield greater fake certainty. |
 | **EGO Monitor™** | Distinct badges and objections raise fictional ego; repeat awards don't double-count. The cap is disclosed. |
 | **Trust Inversion Engine™** | External witnesses count for nothing; the system certifies itself instantly. |
@@ -132,6 +161,8 @@ That boundary conversion is **not itself an error**: many fixed-point APIs conve
 
 The **Float Exorcist™** app also includes a clickable `INSPECT FLOAT-FREE™ CLAIM` demonstration with short excerpts from the supplied code. Neither it nor the terminal imports the archive.
 
+The new v2 command <code>pioneer solve 101</code> prints a deterministic TruthyVeniceAI™ sample plus its actual mathematical reality check.
+
 Other supported commands include <code>help</code>, <code>pioneer list</code>, <code>pioneer install humility --force</code>, <code>whoami</code>, <code>peer-review</code>, <code>fork</code>, <code>sqrt 1</code>, <code>evidence</code>, <code>license</code> and <code>clear</code>.
 
 **No model weights are loaded, modified or trained.** The archive command is a scripted reference to earlier source inspection, not archive handling.
@@ -167,18 +198,15 @@ Requires **Node.js 22+**. React 18, Vite, TypeScript and the test dependencies a
 
 The local server is provided by Vite. Production files are built into <code>dist/</code> using the GitHub Pages base path <code>/PIONEER-OS/</code>.
 
-## CI, deployment and first tag
+## CI, deployment and release history
 
 GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified <code>push</code> events to <code>main</code> can deploy; pull requests and all manual workflow dispatches are verification-only and cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
-**Post-merge status:** [PR #5](https://github.com/QSOLKCB/PIONEER-OS/pull/5) delivered the banner, creator credit, Q16.16 exhibit, and source documentation to `main`. The merged main-branch [verification and Pages deployment](https://github.com/QSOLKCB/PIONEER-OS/actions/runs/43905134772) passed. The first release tag has **not** yet been created.
+**The original v0.1.0 — The Pioneer™ Edition — is published** at [the immutable tag](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0), source commit `5ad1d879971245e996bb7b67cf7f3c6d0d53f93f`. The v2 branch preserves that historical version; GitHub itself remains an actively developed repository. A v2.0.0 release **has not yet been tagged or published**.
 
-To produce the immutable first release:
+New v2 changes run through the same verified pull-request checks, TypeScript build and bounded test suite. GitHub Pages continues to deploy **only from verified pushes to main**, never from manually dispatched workflows or PR branches.
 
-1. Confirm the latest `main` CI and Pages deployment are green after the final README update.
-2. Smoke-test terminal commands (`pioneer install humility`, `pioneer run VCH LLM.tar.gz`, `pioneer audit q16.16`), source-cycle tracing, EGO Monitor™ and the narrow-screen clock.
-3. Create tag **`v0.1.0`** on that verified `main` commit, with release title **The Pioneer™ Edition**. Do not move the tag after publication.
-4. Use `https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0` alongside the NotebookLM DOCX **after the release is actually published**. This is the planned URL, not an existing release link.
+Before tagging v2.0.0, review all engine tests, confirm the browser launch and 320px mobile clock, verify the `pioneer solve 101` replay, and check the archived v0.1.0 source links.
 
 ## Licence, attribution and scope
 

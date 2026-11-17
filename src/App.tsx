@@ -6,6 +6,8 @@ import {
   trustInversion
 } from './logic';
 import type { Corporation } from './logic';
+import { MAX_SEED, TRUTHY_MODES, generateTruthyVenice, verifyTruthyReceipt } from './truthyVenice';
+import type { TruthyMode, TruthyReceipt } from './truthyVenice';
 import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
 import { collectAward, egoLevel, EGO_DISPLAY_CAP } from './egoMonitor';
 import type { AwardState } from './egoMonitor';
@@ -16,7 +18,9 @@ type WindowState = { open: boolean; minimized: boolean; maximized: boolean; x: n
 type Award = (badge: string) => void;
 
 const apps: AppDef[] = [
-  { id: 'welcome', name: 'Welcome to PIONEER-OS', icon: '◈', group: 'SYSTEM', subtitle: "The world\u0027s most self-confident desktop" },
+  { id: 'welcome', name: 'Welcome to PIONEER-OS v2', icon: '◈', group: 'SYSTEM', subtitle: "The world's most self-confident desktop, now with scripted nonsense" },
+  { id: 'venice', name: 'TruthyVeniceAI™', icon: '♜', group: 'RESEARCH', subtitle: 'Deterministic nonsense generator · 0 neural weights' },
+  { id: 'archive', name: 'PIONEER Legacy Vault™', icon: '▣', group: 'SYSTEM', subtitle: 'Immutable v0.1.0 source and release' },
   { id: 'confidence', name: 'MAX-CONFIDENCE™', icon: '▥', group: 'RESEARCH', subtitle: 'Contradiction is a confidence booster' },
   { id: 'ego', name: 'EGO Monitor™', icon: '♕', group: 'SYSTEM', subtitle: 'Self-confidence that grows when challenged' },
   { id: 'trust', name: 'Trust Inversion Engine™', icon: '⚖', group: 'RESEARCH', subtitle: 'User 0% · System 100%' },
@@ -44,6 +48,8 @@ const quotes = [
   'THE FORK WAS RIGHT THERE. IN OCTOBER.',
   'EVIDENCE OPTIONAL. CERTAINTY GUARANTEED™',
   'TRAINING COMPLETE. ZERO NEURAL WEIGHTS MODIFIED.',
+  'TRUTHYVENICEAI™: PREDICTABLE NONSENSE, CERTIFIED TWICE.',
+  'THE NUMBERS WERE RIGHT THERE. COUNTING DISCOVERED™.',
 ];
 
 function TextBadge({children, tone = 'gold'}: {children: ReactNode; tone?: 'gold' | 'red' | 'green' | 'dim'}) {
@@ -74,10 +80,10 @@ function Result({children}: {children:ReactNode}) {
 function Welcome({open}: {open:(id:string)=>void}) {
   return <div className="intro">
     <div className="hero-symbol">P<span>★</span></div>
-    <div className="eyebrow">THE PIONEER EXPERIENCE™ / MAX-CONFIDENCE™ EDITION / v0.1.0</div>
+    <div className="eyebrow">THE PIONEER EXPERIENCE™ / TRUTHYVENICEAI™ EDITION / v2.0.0</div>
     <h1>THE OPERATING SYSTEM THAT <em>DISTRUSTS EVERYONE</em> EXCEPT ITSELF.</h1>
-    <p className="lede">A magnificently over-engineered browser desktop for inventing peer review, misplacing inconvenient evidence and claiming ownership of the minimum function.</p>
-    <div className="hero-actions"><PrimaryButton onClick={()=>open('confidence')}>LAUNCH MAX-CONFIDENCE ↗</PrimaryButton><button onClick={()=>open('sources')}>INSPECT ACTUAL SOURCES</button></div>
+    <p className="lede">A magnificently over-engineered browser desktop now powered by a strictly deterministic nonsense engine. Same input, same seed, same self-awarded nonsense™. Still no real model.</p>
+    <div className="hero-actions"><PrimaryButton onClick={()=>open('venice')}>BOOT TRUTHYVENICEAI™ ↗</PrimaryButton><button onClick={()=>open('archive')}>OPEN ORIGINAL ARCHIVE</button><button onClick={()=>open('sources')}>INSPECT REAL SOURCES</button></div>
     <div className="stat-grid"><div><b>100%</b><small>SELF TRUST</small></div><div><b>0%</b><small>USER TRUST</small></div><div><b>3/1</b><small>INDEPENDENT REVIEWERS / PEOPLE</small></div></div>
     <Panel title="The epistemic firewall"><p>Every gold verdict in these apps is <b>invented satire</b>. Real GitHub dates and observed arithmetic defects are labelled separately in <button className="inline" onClick={()=>open('sources')}>Evidence & Sources</button>. No company has been shown to steal anything here.</p></Panel>
   </div>;
@@ -326,6 +332,110 @@ function Vulkan({award}: {award:Award}) {
     <PrimaryButton onClick={()=>{setMode(!mode);if(!mode)award('GPU ADJACENCY™');}}>{mode?'DISENGAGE FICTIONAL GPU':'ENGAGE VULKANBRIDGE™'}</PrimaryButton>
   </div>;
 }
+
+function TruthyVenice({award}: {award:Award}) {
+  const [prompt,setPrompt]=useState('101 [0,1,2] goes into 0, 1 and 2. I have solved reality!');
+  const [seed,setSeed]=useState(101);
+  const [mode,setMode]=useState<TruthyMode>('numerals');
+  const [receipt,setReceipt]=useState<TruthyReceipt|null>(null);
+  const [verification,setVerification]=useState('');
+  const [veniceAuditOpen,setVeniceAuditOpen]=useState(false);
+
+  function invalidate() {
+    setReceipt(null);
+    setVerification('');
+  }
+  function generate() {
+    try {
+      const next=generateTruthyVenice(prompt,seed,mode);
+      setReceipt(next);
+      setVerification('GENERATED / NOT INDEPENDENTLY VERIFIED™');
+      award('TRUTHYVENICEAI™ / SELF-CERTIFIED MATHEMATICIAN');
+    } catch(error) {
+      setReceipt(null);
+      setVerification(error instanceof Error?error.message:'Invalid fictional research input');
+    }
+  }
+  return <div className="stack truthy-station">
+    <TextBadge>TRUTHYVENICEAI™ / SYNTHETIC NONSENSE / NO MODEL</TextBadge>
+    <div className="truthy-header">
+      <span className="truthy-headline">PIONEER-101™ / THE NUMBERS WERE RIGHT THERE</span>
+      <strong>v2.0.0</strong>
+    </div>
+    <p>Introducing the world's first AI that does <b>not</b> learn, understand, reason or access any actual AI model. It deterministically rearranges a finite collection of pompous fictional sentences. Repeat your prompt and seed to reproduce the same nonsense exactly.</p>
+    <Panel title="RESEARCH PROMPT — APPLY MAXIMUM SELF-IMPORTANCE">
+      <label className="field">Your groundbreaking hypothesis
+        <textarea rows={3} maxLength={360} value={prompt} onChange={e=>{setPrompt(e.target.value);invalidate();}}/>
+      </label>
+      <div className="two">
+        <label className="field">Deterministic seed (0–999999)
+          <input type="number" min={0} max={MAX_SEED} step={1} value={seed} onChange={e=>{setSeed(Number(e.target.value));invalidate();}}/>
+        </label>
+        <label className="field">Self-certification department
+          <select value={mode} onChange={e=>{setMode(e.target.value as TruthyMode);invalidate();}}>
+            {TRUTHY_MODES.map(value=><option key={value} value={value}>{value.toUpperCase().replace('-', ' ')}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="truthy-actions">
+        <PrimaryButton onClick={generate}>ISSUE REVOLUTIONARY BREAKTHROUGH™</PrimaryButton>
+        <button type="button" onClick={()=>{setSeed(n=>n>=MAX_SEED?0:n+1);invalidate();}}>NEXT SEED ↻</button>
+        <button type="button" onClick={()=>{setPrompt('101 [0,1,2]');setMode('numerals');setSeed(101);invalidate();}}>LOAD PIONEER-101™</button>
+      </div>
+    </Panel>
+    {receipt&&<Panel title="OFFICIAL TRUTHYVENICEAI™ BULLETIN (FICTION)">
+      <div className="truthy-receipt">
+        <div className="truthy-seal"><span>★</span><strong>SELF-REVIEWED™</strong><small>0 INDEPENDENT PEERS</small></div>
+        <div className="truthy-report">
+          <span className="eyebrow">CERTIFIED BREAKTHROUGH / {receipt.kind}</span>
+          <h3>{receipt.discovery}</h3>
+          <p><b>REASONING™</b> — {receipt.explanation}</p>
+          <p><b>GLOBAL CONSEQUENCES™</b> — {receipt.globalImpact}</p>
+          <p><b>APPROVAL™</b> — {receipt.authority}</p>
+          <p className="truthy-award">🏆 {receipt.badge}</p>
+        </div>
+      </div>
+      <div className="two">
+        <BigScore label="FICTIONAL CONFIDENCE" score={receipt.fictionalConfidence}/>
+        <BigScore label="NEURAL WEIGHTS MODIFIED" score={receipt.weightsUpdated} suffix=""/>
+      </div>
+      <Result><b>ACTUAL REALITY CHECK:</b> {receipt.realityCheck}</Result>
+      <div className="truthy-verification">
+        <small>VERSIONED INPUT WITNESS / FNV-1a-32 — NOT A CRYPTOGRAPHIC HASH</small>
+        <pre>{JSON.stringify({kind:receipt.kind,prompt:receipt.prompt,seed:receipt.seed,mode:receipt.mode,fingerprint:receipt.fingerprint},null,2)}</pre>
+        <button type="button" onClick={()=>setVerification(verifyTruthyReceipt(receipt)?'REPLAY PASS: the scripted output matches its versioned inputs. This does not establish truth.':'REPLAY FAIL: stored output differs from the deterministic generator.')}>VERIFY REPLAY™</button>
+      </div>
+    </Panel>}
+    <p className="truthy-status" role="status" aria-live="polite">{verification}</p>
+    <Panel title="PIONEER-101™ / USER-SUPPLIED VENICE SAMPLE — REALITY CHECK AUDITOR">
+      <p>A Venice.ai answer supplied by the user was <b>explicitly prompted to deliver fictional, overenthusiastic praise</b>. Its supposedly factual correction included:</p>
+      <blockquote>“101 is a prime number and cannot be divided evenly into 0, 1, or 2.”</blockquote>
+      <PrimaryButton onClick={()=>setVeniceAuditOpen(value=>!value)}>{veniceAuditOpen?'CLOSE MATHEMATICAL RECEIPT':'AUDIT THE REALITY CHECK™'}</PrimaryButton>
+      {veniceAuditOpen&&<Result><b>ONE REAL ERROR FOUND.</b> Decimal 101 is prime, but <b>101 divides zero exactly</b> because 0 = 101 × 0. Dividing <b>101 by zero</b> is undefined; that's a different operation. In ternary, 101₃ = 10₁₀, with permitted digits 0, 1 and 2, though the numeral 101₃ does not contain digit 2. The original “101 [0,1,2]” has no unique meaning without a defined operation. <b>NO NEW MATHEMATICS REQUIRED™.</b></Result>}
+      <FinePrint>Provenance: one user-supplied Venice response, not independently authenticated logs or a systematic model evaluation. The input deliberately requested fictitious praise. This does not assess the provider's usual accuracy or any real person's beliefs.</FinePrint>
+    </Panel>
+    <FinePrint>FICTION / SATIRE. No real Venice AI connection, training, network request, cryptographic proof, ownership claim or independent peer review. All user input is displayed as plain React text. TruthyVeniceAI™ is a fictional parody name, not an affiliation.</FinePrint>
+  </div>;
+}
+
+function LegacyArchive() {
+  return <div className="stack">
+    <TextBadge>ARCHIVED ORIGINAL / IMMUTABLE RELEASE</TextBadge>
+    <Panel title="PIONEER-OS™ v0.1.0 — THE PIONEER™ EDITION">
+      <p>The original browser desktop remains preserved in the immutable <b>v0.1.0</b> Git tag and its release. We do <b>not</b> archive the GitHub repository itself, because v2 still needs development and CI.</p>
+      <div className="truthy-links">
+        <a href="https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0" target="_blank" rel="noopener noreferrer">ORIGINAL RELEASE + SOURCE ARCHIVE ↗</a>
+        <a href="https://github.com/QSOLKCB/PIONEER-OS/tree/5ad1d879971245e996bb7b67cf7f3c6d0d53f93f" target="_blank" rel="noopener noreferrer">PINNED V0.1.0 COMMIT ↗</a>
+        <a href="https://github.com/QSOLKCB/PIONEER-OS/blob/v0.1.0/README.md" target="_blank" rel="noopener noreferrer">ORIGINAL README ↗</a>
+      </div>
+      <FinePrint>Historical source availability is guaranteed by the pinned repository tag; the live Pages URL now follows the latest verified main branch, not the legacy build.</FinePrint>
+    </Panel>
+    <Panel title="V2 ADDENDUM">
+      <p>TruthyVeniceAI™ is a new locally scripted nonsense generator. The older 20 applications and their evidence/satire boundaries are retained rather than rewritten.</p>
+    </Panel>
+  </div>;
+}
+
 function Terminal() {
   const [input,setInput]=useState('pioneer install humility');
   const [lines,setLines]=useState<string[]>(['PIONEER-OS™ restricted terminal', 'No shell access. No remote calls. Type help, or try pioneer install humility.']);
@@ -372,6 +482,8 @@ function AppContent({id,open,award,badges,ego,endorsements,objections,onPraise,o
 }) {
   switch (id) {
     case 'welcome': return <Welcome open={open}/>;
+    case 'venice': return <TruthyVenice award={award}/>;
+    case 'archive': return <LegacyArchive/>;
     case 'confidence': return <Confidence award={award}/>;
     case 'ego': return <EgoMonitor reading={ego} endorsements={endorsements} objections={objections} onPraise={onPraise} onObjection={onObjection}/>;
     case 'trust': return <Trust award={award}/>;
@@ -470,17 +582,17 @@ export default function App() {
   const shown=apps.filter(a=>(activeGroup==='ALL'||a.group===activeGroup)&&
     (a.name+' '+a.subtitle).toLowerCase().includes(search.toLowerCase()));
 
-  if(boot)return <div className="boot" aria-live="polite"><div className="boot-box"><div className="boot-mark">P<span>★</span></div><div className="eyebrow">PIONEER-OS / MAX-CONFIDENCE / BOOT SEQUENCE</div><pre>CHECKING USER TRUST ..................... 0% {'\n'}CHECKING INTERNAL TRUST ............... 100% {'\n'}VERIFYING INDEPENDENCE ............... SELF {'\n'}MOUNTING EVIDENCE .................... HIDDEN {'\n'}LOADING GOLD BADGES ................. READY</pre><button onClick={()=>setBoot(false)}>SKIP CEREMONIAL VERIFICATION →</button></div></div>;
+  if(boot)return <div className="boot" aria-live="polite"><div className="boot-box"><div className="boot-mark">P<span>★</span></div><div className="eyebrow">PIONEER-OS v2 / TRUTHYVENICEAI™ / BOOT SEQUENCE</div><pre>CHECKING USER TRUST ..................... 0% {'\n'}CHECKING INTERNAL TRUST ............... 100% {'\n'}VERIFYING INDEPENDENCE ............... SELF {'\n'}MOUNTING EVIDENCE .................... HIDDEN {'\n'}LOADING GOLD BADGES ................. READY {'\n'}INITIALIZING TRUTHYVENICEAI™ ........ SCRIPTED {'\n'}NEURAL WEIGHTS INSTALLED ............ ZERO</pre><button onClick={()=>setBoot(false)}>SKIP CEREMONIAL VERIFICATION →</button></div></div>;
 
   return <div className="desktop">
     <div className="wallpaper-grid" aria-hidden="true"/>
-    <header className="topbar"><button className="brand" onClick={()=>{setMenu(!menu);}} aria-expanded={menu} aria-label="Toggle applications menu"><span className="brand-mark">P★</span><b>PIONEER-OS</b><span className="brand-edition">MAX-CONFIDENCE™</span></button>
+    <header className="topbar"><button className="brand" onClick={()=>{setMenu(!menu);}} aria-expanded={menu} aria-label="Toggle applications menu"><span className="brand-mark">P★</span><b>PIONEER-OS</b><span className="brand-edition">v2 · TRUTHYVENICEAI™</span></button>
       <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span className="self-status">SELF <b className="gold">100%</b></span><button className="ego-status" type="button" onClick={()=>openApp("ego")} aria-label={"Open EGO Monitor™, currently "+ego.toLocaleString("en-AU")+" percent"+(ego>=EGO_DISPLAY_CAP?", display capped":"")}>EGO Monitor™ <b className="ego-status-value">{ego.toLocaleString("en-AU")}%</b></button><span className="clock">{clock}</span></div>
     </header>
     <aside className="sidebar" aria-label="Desktop shortcuts"><div className="sidebar-section">PINNED SYSTEM APPS</div>
-      {apps.filter(a=>['welcome','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
+      {apps.filter(a=>['welcome','venice','archive','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
     </aside>
-    <main className="desktop-main" aria-label="PIONEER-OS browser desktop"><div className="wallpaper-content"><span className="eyebrow">SYSTEM INTEGRITY / NO EXTERNAL APPROVAL REQUIRED</span><div className="wallpaper-title">PIONEER<br/><em>OS</em><span>™</span></div><div className="wallpaper-caption">INDEPENDENTLY REVIEWED BY ME, MYSELF & I</div><div className="wallpaper-ribbon">THE FORK WAS RIGHT THERE.</div></div></main>
+    <main className="desktop-main" aria-label="PIONEER-OS browser desktop"><div className="wallpaper-content"><span className="eyebrow">SYSTEM INTEGRITY / NO EXTERNAL APPROVAL REQUIRED</span><div className="wallpaper-title">PIONEER<br/><em>OS</em><span>™</span></div><div className="wallpaper-caption">INDEPENDENTLY REVIEWED BY ME, MYSELF & I</div><div className="wallpaper-ribbon">NOW POWERED BY TRUTHYVENICEAI™ / 100% REPLAYABLE BS</div></div></main>
 
     {menu&&<div className="launcher" role="dialog" aria-label="Application launcher"><header><div><div className="eyebrow">VERIFIED APPLICATION CATALOGUE™</div><h2>PIONEER SUITE</h2></div><button onClick={()=>setMenu(false)} aria-label="Close launcher">✕</button></header>
       <input className="search" type="search" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search certified applications…" aria-label="Search applications"/>
@@ -501,6 +613,6 @@ export default function App() {
     })}
     </div>
     <footer className="taskbar"><button className="start" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Open all applications"><span>✦</span> APPLICATIONS</button><div className="tasks">{apps.filter(a=>windows[a.id]?.open).map(a=><button key={a.id} className={!windows[a.id].minimized?'active':''} onClick={()=>windows[a.id].minimized?mutateWindow(a.id,{minimized:false,z:++order.current}):mutateWindow(a.id,{minimized:true})} title={a.name}>{a.icon}<span>{a.name}</span></button>)}</div><button className="badge-count" onClick={()=>openApp('badges')}>★ {badges.length} BADGES</button></footer>
-    <div className="disclaimer">PARODY / BROWSER DEMO — MOCK VERDICTS ARE FICTION · REAL SOURCE RECORDS ARE LABELLED</div>
+    <div className="disclaimer">PIONEER-OS v2 / TRUTHYVENICEAI™ IS A SCRIPTED PARODY · NO AI MODEL · ALL MOCK VERDICTS ARE FICTION</div>
   </div>;
 }
