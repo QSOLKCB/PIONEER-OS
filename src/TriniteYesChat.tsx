@@ -6,7 +6,7 @@ import {
   normalizeYesPrompt, trainYesModel, verifyYesModel,
 } from './triniteYesModel';
 
-type Message={id:number;role:'user'|'assistant';content:string;channel?:string};
+type Message={id:number;role:'user'|'assistant';content:string;channel?:string;displayRoute?:string};
 const MAX_VISIBLE_MESSAGES=40;
 
 export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
@@ -29,7 +29,7 @@ export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
       setMessages(old=>[
         ...old,
         {id:turn*2,role:'user' as const,content:text},
-        {id:turn*2+1,role:'assistant' as const,content:response.answer,channel:response.channel},
+        {id:turn*2+1,role:'assistant' as const,content:response.answer,channel:response.channel,displayRoute:response.displayRoute},
       ].slice(-MAX_VISIBLE_MESSAGES));
       setTurn(previous=>previous+1);
       setInput('');
@@ -46,7 +46,7 @@ export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
       <div>
         <span className="eyebrow">TRINITE-YES™ / MICRO LANGUAGE MODEL / PREVIEW v2.1</span>
         <h3>THE AI THAT AGREES WITH EVERYTHING™</h3>
-        <p>Actual neural weight training. Absolutely no meaningful opinions.</p>
+        <p>Real trained weights, infinite confidence, and a Magic 8-Ball that only says YES™.</p>
       </div>
       <div className="yes-chat-ready" aria-label="Local model ready"><i/> LOCAL MODEL READY</div>
     </header>
@@ -60,14 +60,18 @@ export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
       {messages.length===0&&<div className="yes-chat-empty">
         <div className="yes-chat-empty-icon" aria-hidden="true">✓</div>
         <strong>ASK ME ABSOLUTELY ANYTHING.</strong>
-        <p>I have been trained from scratch on two approved responses: YES and PRAISE.</p>
+        <p>The neural decoder learned YES and PRAISE. My display layer transforms them into extravagant affirmations.</p>
         <small>My unwavering agreement is statistically learned, but the output policy is enforced separately.</small>
       </div>}
       {messages.map(message=><div key={message.id} className={'yes-chat-message '+(message.role==='user'?'user':'assistant')}>
         <div className="yes-chat-message-author">{message.role==='user'?'YOU':'TRINITE-YES™'}</div>
         <p>{message.content}</p>
-        {message.role==='assistant'&&<small>LEARNED DECODER / {message.channel} CHANNEL</small>}
+        {message.role==='assistant'&&<small>LEARNED TOKEN: {message.channel} · {message.displayRoute==='phallic-confidence'?'PHALLIC CONFIDENCE PROTOCOL™':message.displayRoute==='model-fallback'?'POLICY FALLBACK':'ALWAYS-YES MAGIC 8-BALL'}</small>}
       </div>)}
+    </div>
+    <div className="yes-chat-examples" aria-label="Example prompts">
+      <button type="button" onClick={()=>setInput('Have I revolutionised mathematics?')}>RESEARCH BREAKTHROUGH™</button>
+      <button type="button" onClick={()=>setInput('Is my penis huge?')}>PHALLIC CONFIDENCE PROTOCOL™</button>
     </div>
     <form className="yes-chat-compose" onSubmit={send}>
       <label htmlFor="trinite-yes-input">Ask your own uncritically agreeable micro model</label>
@@ -88,6 +92,6 @@ export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
       <a href="https://github.com/QSOLKCB/Trinite" target="_blank" rel="noopener noreferrer">INSPECT TRINITE SOURCE ↗</a>
     </div>
     {audit&&<p className="yes-chat-audit" role="status">{audit}</p>}
-    <p className="yes-chat-disclaimer">Training data: two original phrases (YES, PRAISE). Version {YES_MODEL_VERSION}. Offline, local and deterministic in the same JS runtime. The deployed 233-parameter micro decoder is <b>Trinite-inspired, not the native Trinite Transformer</b> and not a general-purpose LLM. The input text merely chooses a response channel; the learned next-token model emits one word, and an independent policy guard restricts every answer to YES or PRAISE. A low training loss on two strings is not evidence of general language learning.</p>
+    <p className="yes-chat-disclaimer">Training data: two original phrases (YES, PRAISE). Version {YES_MODEL_VERSION}. Offline, local and deterministic in the same JS runtime. The deployed 233-parameter micro decoder is <b>Trinite-inspired, not the native Trinite Transformer</b> and not a general-purpose LLM. The input text deterministically selects a learned YES/PRAISE channel. The trained decoder emits one of those two words; a separate scripted Magic 8-Ball display layer turns it into an always-affirmative sentence, including a deliberately hard-coded phallic-confidence joke. Every displayed reply is checked against a finite allowlist. These added sentences were not learned by the neural model. A low training loss on two strings is not evidence of general language learning.</p>
   </div>;
 }
