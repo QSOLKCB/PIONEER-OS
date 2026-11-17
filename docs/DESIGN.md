@@ -1,3 +1,13 @@
+# PIONEER-OS™ v2.0.0 — Addendum
+
+The legacy v0.1.0 design below is retained as historical context. Its immutable published source is available at `v0.1.0`; this branch adds two applications, **TruthyVeniceAI™** and **PIONEER Legacy Vault™**, for a total of 22 apps.
+
+The new nonsense engine is a pure TypeScript module with a bounded normalized prompt, explicit integer seed and four fixed mode identifiers. Its output is entirely scripted, deterministic and locally computed; its FNV-derived witness is not cryptographic. The browser UI uses React text rendering, not HTML evaluation. A separate user-supplied Venice.ai answer is disclosed as a single prompted example, not a verified model study. There are no network requests to any AI provider.
+
+See [TRUTHYVENICE_V2.md](TRUTHYVENICE_V2.md) for replay, input, version and reality-check semantics.
+
+---
+
 # PIONEER-OS v0.1.0 — Satirical design specification
 
 This is a deliberately over-engineered React + TypeScript **browser-only desktop**, in the spirit of the LCOS parody, not an actual operating system.
