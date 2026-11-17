@@ -27,7 +27,7 @@ test('TruthyVeniceAI desktop generates and verifies the same nonsense twice', ()
   const ui = openApp(/TruthyVeniceAI™/);
   const issue = ui.getByRole('button', { name: 'ISSUE REVOLUTIONARY BREAKTHROUGH™' });
   fireEvent.click(issue);
-  const witness = ui.container.querySelector('.truthy-verification pre');
+  const witness = ui.getByText(/"fingerprint":/);
   assert.ok(witness, 'Expected visible versioned receipt');
   const before = witness.textContent;
   assert.match(before, /"seed": 101/);
