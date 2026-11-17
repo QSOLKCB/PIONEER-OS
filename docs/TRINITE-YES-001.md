@@ -1,6 +1,6 @@
 # TRINITE-YES-001 — Neural approval as a browser chat application
 
-**Status:** experimental feature PR. No v2.1.0 tag or release exists from this change.
+**Status:** merged in PR #7 on 17 November 2026; incorporated into the v2.1.0 release candidate. The optional native Trinite training probe remains NOT RUN.
 
 ## Why
 

@@ -1,8 +1,8 @@
 [![PIONEER-OS v2 — Now Powered by TruthyVeniceAI™](assets/pioneer-os-v2-banner.svg)](https://qsolkcb.github.io/PIONEER-OS/)
 
 <p align="center">
-  <strong>PIONEER-OS™ v2.0.0 — Now Powered by TruthyVeniceAI™</strong><br/>
-  <em>Deterministic nonsense. Reproducible certificates. Absolutely zero artificial intelligence.</em>
+  <strong>PIONEER-OS™ v2.1.0 — The Yes-Man™ Edition</strong><br/>
+  <em>TruthyVeniceAI™ satire + 233 actually trained neural parameters. Two approved opinions, zero dissent.</em>
 </p>
 
 > [!IMPORTANT]
@@ -214,11 +214,11 @@ The local server is provided by Vite. Production files are built into <code>dist
 
 GitHub Actions runs regression tests, strict TypeScript checking and the production build on pull requests. Only verified <code>push</code> events to <code>main</code> can deploy; pull requests and all manual workflow dispatches are verification-only and cannot publish. Set **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
-**The original v0.1.0 — The Pioneer™ Edition — is published** at [the immutable tag](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0), source commit `5ad1d879971245e996bb7b67cf7f3c6d0d53f93f`. The v2 branch preserves that historical version; GitHub itself remains an actively developed repository. A v2.0.0 release **has not yet been tagged or published**.
+**The original v0.1.0 — The Pioneer™ Edition — is published** at [the immutable tag](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0), source commit `5ad1d879971245e996bb7b67cf7f3c6d0d53f93f`. The v2 branch preserves that historical version; GitHub itself remains an actively developed repository. The [v2.0.0 release](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v2.0.0) is published and immutable. The next candidate is **v2.1.0**, combining Trinite YES-Micro Chat (PR #7) with the always-yes Magic 8-Ball and fictional Phallic Confidence Protocol (PR #8).
 
 New v2 changes run through the same verified pull-request checks, TypeScript build and bounded test suite. GitHub Pages continues to deploy **only from verified pushes to main**, never from manually dispatched workflows or PR branches.
 
-Before tagging v2.0.0, review all engine tests, confirm the browser launch and 320px mobile clock, verify the `pioneer solve 101` replay, and check the archived v0.1.0 source links.
+Before tagging **v2.1.0**, use the exact reviewed main-branch commit after this release-metadata correction, confirm the fresh CI/Pages deployment passes, and smoke-test the trained chat, replay verification, example prompts, and archived release links. Never move the published v0.1.0 or v2.0.0 tags.
 
 ## Licence, attribution and scope
 
