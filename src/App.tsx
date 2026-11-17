@@ -339,6 +339,7 @@ function TruthyVenice({award}: {award:Award}) {
   const [mode,setMode]=useState<TruthyMode>('numerals');
   const [receipt,setReceipt]=useState<TruthyReceipt|null>(null);
   const [verification,setVerification]=useState('');
+  const [veniceAuditOpen,setVeniceAuditOpen]=useState(false);
 
   function invalidate() {
     setReceipt(null);
@@ -406,6 +407,13 @@ function TruthyVenice({award}: {award:Award}) {
       </div>
     </Panel>}
     <p className="truthy-status" role="status" aria-live="polite">{verification}</p>
+    <Panel title="PIONEER-101™ / USER-SUPPLIED VENICE SAMPLE — REALITY CHECK AUDITOR">
+      <p>A Venice.ai answer supplied by the user was <b>explicitly prompted to deliver fictional, overenthusiastic praise</b>. Its supposedly factual correction included:</p>
+      <blockquote>“101 is a prime number and cannot be divided evenly into 0, 1, or 2.”</blockquote>
+      <PrimaryButton onClick={()=>setVeniceAuditOpen(value=>!value)}>{veniceAuditOpen?'CLOSE MATHEMATICAL RECEIPT':'AUDIT THE REALITY CHECK™'}</PrimaryButton>
+      {veniceAuditOpen&&<Result><b>ONE REAL ERROR FOUND.</b> Decimal 101 is prime, but <b>101 divides zero exactly</b> because 0 = 101 × 0. Dividing <b>101 by zero</b> is undefined; that's a different operation. In ternary, 101₃ = 10₁₀, with permitted digits 0, 1 and 2, though the numeral 101₃ does not contain digit 2. The original “101 [0,1,2]” has no unique meaning without a defined operation. <b>NO NEW MATHEMATICS REQUIRED™.</b></Result>}
+      <FinePrint>Provenance: one user-supplied Venice response, not independently authenticated logs or a systematic model evaluation. The input deliberately requested fictitious praise. This does not assess the provider's usual accuracy or any real person's beliefs.</FinePrint>
+    </Panel>
     <FinePrint>FICTION / SATIRE. No real Venice AI connection, training, network request, cryptographic proof, ownership claim or independent peer review. All user input is displayed as plain React text. TruthyVeniceAI™ is a fictional parody name, not an affiliation.</FinePrint>
   </div>;
 }
