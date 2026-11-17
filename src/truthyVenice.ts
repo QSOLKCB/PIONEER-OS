@@ -132,7 +132,7 @@ export function generateTruthyVenice(
     'The International Self-Review Council has certified this finding from inside a bathroom mirror.',
     'The number of independent reviewers has been conservatively rounded down to zero.',
   ] as const, hash, 0x40404040);
-  const body = {
+  const body: Omit<TruthyReceipt, 'fingerprint'> = {
     kind: ENGINE_VERSION,
     prompt,
     seed,

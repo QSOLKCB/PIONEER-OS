@@ -21,7 +21,7 @@ The terminal also supports `pioneer solve 101`. It returns versioned, reproducib
 
 For technical contracts and the source-scope boundary, read [docs/TRUTHYVENICE_V2.md](docs/TRUTHYVENICE_V2.md). For the legacy release details, see [docs/LEGACY_V0_1_0.md](docs/LEGACY_V0_1_0.md).
 
-**No new runtime dependencies. No actual AI. No new maths.™
+**No new runtime dependencies. No actual AI. No new maths.™**
 
 ---
 
