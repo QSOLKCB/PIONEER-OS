@@ -30,7 +30,7 @@ function submit(chat,question) {
 
 test('chat trains in browser and any sentence receives only YES or PRAISE',()=>{
   const chat=openChat();
-  chat.getByText(/233/);
+  chat.getByText('233');
   const inputs=['Do I own mathematics?','NO','101 [0,1,2]','<img src=x onerror=alert(1)>'];
   for(const text of inputs)submit(chat,text);
   const log=chat.getByRole('log',{name:'TruthyTrinite chat transcript'});
