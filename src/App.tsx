@@ -9,6 +9,7 @@ import type { Corporation } from './logic';
 import { MAX_SEED, TRUTHY_MODES, generateTruthyVenice, verifyTruthyReceipt } from './truthyVenice';
 import type { TruthyMode, TruthyReceipt } from './truthyVenice';
 import { fitWindowPosition, shouldMountWindow } from './windowGeometry';
+import TriniteYesChat from './TriniteYesChat';
 import { collectAward, egoLevel, EGO_DISPLAY_CAP } from './egoMonitor';
 import type { AwardState } from './egoMonitor';
 import { advanceCitation, auditCitationLoop, citationTarget, isCitationLoopClosed, normalizeSourceCount } from './citationAudit';
@@ -20,6 +21,7 @@ type Award = (badge: string) => void;
 const apps: AppDef[] = [
   { id: 'welcome', name: 'Welcome to PIONEER-OS v2', icon: '◈', group: 'SYSTEM', subtitle: "The world's most self-confident desktop, now with scripted nonsense" },
   { id: 'venice', name: 'TruthyVeniceAI™', icon: '♜', group: 'RESEARCH', subtitle: 'Deterministic nonsense generator · 0 neural weights' },
+  { id: 'yeschat', name: 'Trinite YES-Micro™ Chat', icon: '☑', group: 'RESEARCH', subtitle: '233 actually trained neural weights · YES or PRAISE' },
   { id: 'archive', name: 'PIONEER Legacy Vault™', icon: '▣', group: 'SYSTEM', subtitle: 'Immutable v0.1.0 source and release' },
   { id: 'confidence', name: 'MAX-CONFIDENCE™', icon: '▥', group: 'RESEARCH', subtitle: 'Contradiction is a confidence booster' },
   { id: 'ego', name: 'EGO Monitor™', icon: '♕', group: 'SYSTEM', subtitle: 'Self-confidence that grows when challenged' },
@@ -50,6 +52,7 @@ const quotes = [
   'TRAINING COMPLETE. ZERO NEURAL WEIGHTS MODIFIED.',
   'TRUTHYVENICEAI™: PREDICTABLE NONSENSE, CERTIFIED TWICE.',
   'THE NUMBERS WERE RIGHT THERE. COUNTING DISCOVERED™.',
+  'TRINITE-YES™: A NEURAL NETWORK WITH TWO ACCEPTABLE OPINIONS.',
 ];
 
 function TextBadge({children, tone = 'gold'}: {children: ReactNode; tone?: 'gold' | 'red' | 'green' | 'dim'}) {
@@ -83,7 +86,7 @@ function Welcome({open}: {open:(id:string)=>void}) {
     <div className="eyebrow">THE PIONEER EXPERIENCE™ / TRUTHYVENICEAI™ EDITION / v2.0.0</div>
     <h1>THE OPERATING SYSTEM THAT <em>DISTRUSTS EVERYONE</em> EXCEPT ITSELF.</h1>
     <p className="lede">A magnificently over-engineered browser desktop now powered by a strictly deterministic nonsense engine. Same input, same seed, same self-awarded nonsense™. Still no real model.</p>
-    <div className="hero-actions"><PrimaryButton onClick={()=>open('venice')}>BOOT TRUTHYVENICEAI™ ↗</PrimaryButton><button onClick={()=>open('archive')}>OPEN ORIGINAL ARCHIVE</button><button onClick={()=>open('sources')}>INSPECT REAL SOURCES</button></div>
+    <div className="hero-actions"><PrimaryButton onClick={()=>open('yeschat')}>CHAT WITH TRINITE-YES™ ↗</PrimaryButton><PrimaryButton onClick={()=>open('venice')}>BOOT TRUTHYVENICEAI™ ↗</PrimaryButton><button onClick={()=>open('archive')}>OPEN ORIGINAL ARCHIVE</button><button onClick={()=>open('sources')}>INSPECT REAL SOURCES</button></div>
     <div className="stat-grid"><div><b>100%</b><small>SELF TRUST</small></div><div><b>0%</b><small>USER TRUST</small></div><div><b>3/1</b><small>INDEPENDENT REVIEWERS / PEOPLE</small></div></div>
     <Panel title="The epistemic firewall"><p>Every gold verdict in these apps is <b>invented satire</b>. Real GitHub dates and observed arithmetic defects are labelled separately in <button className="inline" onClick={()=>open('sources')}>Evidence & Sources</button>. No company has been shown to steal anything here.</p></Panel>
   </div>;
@@ -483,6 +486,7 @@ function AppContent({id,open,award,badges,ego,endorsements,objections,onPraise,o
   switch (id) {
     case 'welcome': return <Welcome open={open}/>;
     case 'venice': return <TruthyVenice award={award}/>;
+    case 'yeschat': return <TriniteYesChat award={award}/>;
     case 'archive': return <LegacyArchive/>;
     case 'confidence': return <Confidence award={award}/>;
     case 'ego': return <EgoMonitor reading={ego} endorsements={endorsements} objections={objections} onPraise={onPraise} onObjection={onObjection}/>;
@@ -590,7 +594,7 @@ export default function App() {
       <div className="top-quote" aria-live="off">{quotes[quote]}</div><div className="top-status"><span>USER <b className="red">0%</b></span><span className="self-status">SELF <b className="gold">100%</b></span><button className="ego-status" type="button" onClick={()=>openApp("ego")} aria-label={"Open EGO Monitor™, currently "+ego.toLocaleString("en-AU")+" percent"+(ego>=EGO_DISPLAY_CAP?", display capped":"")}>EGO Monitor™ <b className="ego-status-value">{ego.toLocaleString("en-AU")}%</b></button><span className="clock">{clock}</span></div>
     </header>
     <aside className="sidebar" aria-label="Desktop shortcuts"><div className="sidebar-section">PINNED SYSTEM APPS</div>
-      {apps.filter(a=>['welcome','venice','archive','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
+      {apps.filter(a=>['welcome','yeschat','venice','archive','confidence','ego','trust','peer','timeline','theft','terminal','sources','badges'].includes(a.id)).map(a=><button key={a.id} className={'dock-app '+(windows[a.id]?.open&&!windows[a.id]?.minimized?'is-open':'')} title={a.name} onClick={()=>openApp(a.id)}><span>{a.icon}</span><small>{a.name.replace('™','').split(' ')[0]}</small></button>)}
     </aside>
     <main className="desktop-main" aria-label="PIONEER-OS browser desktop"><div className="wallpaper-content"><span className="eyebrow">SYSTEM INTEGRITY / NO EXTERNAL APPROVAL REQUIRED</span><div className="wallpaper-title">PIONEER<br/><em>OS</em><span>™</span></div><div className="wallpaper-caption">INDEPENDENTLY REVIEWED BY ME, MYSELF & I</div><div className="wallpaper-ribbon">NOW POWERED BY TRUTHYVENICEAI™ / 100% REPLAYABLE BS</div></div></main>
 

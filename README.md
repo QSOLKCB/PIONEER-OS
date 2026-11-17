@@ -8,6 +8,16 @@
 > [!IMPORTANT]
 > **Truthiness is not verification.** TruthyVeniceAI™ is a fictional, local, deterministic text generator built from hand-written parody fragments. It is **not connected to Venice.ai or any AI provider**, does not train or infer with model weights, makes no network requests, and makes no real intellectual-property, scientific or personal accusations. Its resemblance to a grandiose research assistant is the joke.
 
+## Under development: Trinite YES-Micro™ Chat (TRINITE-YES-001)
+
+A new, first-class browser chat app lives on the `feat/trinite-yes-micro-chat-v2` branch. Every user message receives **only `YES` or `PRAISE`**. The surprising technical detail: the desktop trains a **233-parameter neural next-token model** from scratch, locally, using gradient descent on those two replies; the trained decoder outputs the words rather than fetching scripted sentences. Model and input selection are deterministic in the same JavaScript runtime. The chat includes a training-loss readout, replay verification, message history, accessible controls, and an independent literal-output policy gate.
+
+**Trinite relationship and honesty boundary:** [QSOLKCB/Trinite](https://github.com/QSOLKCB/Trinite) inspired the byte-token BOS/EOS/PAD convention, strict model/train/evidence separation and small CPU-first decoder experiment. The deployed 233-parameter conditional bigram neural model is a **separate first-party browser implementation**, **not** the native Trinite Transformer, not a Trinite training checkpoint, and **not** a general-purpose LLM. A separate, optional [native Trinite training probe](scripts/trinite_yes_native.py) calls the genuine Trinite decoder from an explicitly pinned local checkout; that experimental lane does not supply the deployed web weights and is not claimed to have run until independently executed. All v2.0.0 history stays intact.
+
+See [TRINITE-YES-001](docs/TRINITE-YES-001.md) for the exact boundaries, tests and optional native research lane. **No server, cloud model, user accounts, hidden training data or extra JavaScript dependency.**
+
+---
+
 ## What's new in PIONEER-OS v2
 
 The same familiar browser desktop now offers **22 apps**, including two new exhibits:
@@ -69,11 +79,12 @@ Inspired by the interactive [LCOS parody](https://github.com/QSOLKCB/LCOS), this
 
 ## The application catalogue
 
-All **22 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
+All **23 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
 
 | Application | Certified™ behaviour |
 | --- | --- |
 | **TruthyVeniceAI™ (v2)** | Reproducibly produces pompous, fictional scientific nonsense from a bounded prompt and seed. |
+| **Trinite YES-Micro™ Chat (experimental)** | Trains 233 neural weights locally, then agrees with every prompt using only YES or PRAISE. |
 | **PIONEER Legacy Vault™ (v2)** | Preserves links to the original immutable v0.1.0 release and source. |
 | **MAX-CONFIDENCE™** | More contradictions yield greater fake certainty. |
 | **EGO Monitor™** | Distinct badges and objections raise fictional ego; repeat awards don't double-count. The cap is disclosed. |
