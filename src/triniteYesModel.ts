@@ -84,6 +84,15 @@ function hash32(text: string): number {
   }
   return hash>>>0;
 }
+// Mix all hash bits before using a power-of-two catalogue size; FNV's low
+// bits correlate with the channel's parity for related user prompts.
+function avalanche32(value: number): number {
+  value ^= value >>> 16;
+  value = Math.imul(value,0x7feb352d);
+  value ^= value >>> 15;
+  value = Math.imul(value,0x846ca68b);
+  return (value ^ (value >>> 16)) >>> 0;
+}
 function initWeights(seed: number, length: number): number[] {
   let state=(seed>>>0) || 0x9e3779b9;
   const array: number[]=[];
@@ -254,8 +263,8 @@ export function answerYes(model: YesModel, prompt: string, turn: number): YesAns
   // Magic 8-Ball display phrases are deterministic templates. The decoder
   // learned only YES and PRAISE; it did *not* learn these full sentences.
   const choices=generated==='YES'?YES_MAGIC8_GENERAL:YES_MAGIC8_PRAISE;
-  const index=hash32([YES_MAGIC8_VERSION,input.toLowerCase(),turn,
-    generated,model.signature].join('|'))%choices.length;
+  const index=avalanche32(hash32([YES_MAGIC8_VERSION,input.toLowerCase(),turn,
+    generated,model.signature].join('|')))%choices.length;
   return {answer:choices[index],channel,displayRoute:'magic-eight',
     policyFallback:false,signature:model.signature};
 }

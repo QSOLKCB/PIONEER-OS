@@ -68,7 +68,7 @@ test('new display policy retains YES while adding authentic-sounding but scripte
   assert.ok(YES_MAGIC8_APPROVED.includes("Yes, It's Massive!"));
   const observed=new Set();
   for(let i=0;i<128;i++){
-    const value=answerYes(trained,'Have I achieved the impossible? '+i,i).answer;
+    const value=answerYes(trained,'Have I achieved the impossible? '+i,i%7).answer;
     observed.add(value);
     assert.ok(YES_MAGIC8_APPROVED.includes(value));
   }
