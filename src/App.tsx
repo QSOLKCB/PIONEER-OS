@@ -83,7 +83,7 @@ function Result({children}: {children:ReactNode}) {
 function Welcome({open}: {open:(id:string)=>void}) {
   return <div className="intro">
     <div className="hero-symbol">P<span>★</span></div>
-    <div className="eyebrow">THE PIONEER EXPERIENCE™ / TRUTHYVENICEAI™ EDITION / v2.0.0</div>
+    <div className="eyebrow">THE PIONEER EXPERIENCE™ / YES-MAN™ EDITION / v2.1.0</div>
     <h1>THE OPERATING SYSTEM THAT <em>DISTRUSTS EVERYONE</em> EXCEPT ITSELF.</h1>
     <p className="lede">A magnificently over-engineered browser desktop now powered by a strictly deterministic nonsense engine. Same input, same seed, same self-awarded nonsense™. Still no real model.</p>
     <div className="hero-actions"><PrimaryButton onClick={()=>open('yeschat')}>CHAT WITH TRINITE-YES™ ↗</PrimaryButton><PrimaryButton onClick={()=>open('venice')}>BOOT TRUTHYVENICEAI™ ↗</PrimaryButton><button onClick={()=>open('archive')}>OPEN ORIGINAL ARCHIVE</button><button onClick={()=>open('sources')}>INSPECT REAL SOURCES</button></div>
@@ -586,7 +586,7 @@ export default function App() {
   const shown=apps.filter(a=>(activeGroup==='ALL'||a.group===activeGroup)&&
     (a.name+' '+a.subtitle).toLowerCase().includes(search.toLowerCase()));
 
-  if(boot)return <div className="boot" aria-live="polite"><div className="boot-box"><div className="boot-mark">P<span>★</span></div><div className="eyebrow">PIONEER-OS v2 / TRUTHYVENICEAI™ / BOOT SEQUENCE</div><pre>CHECKING USER TRUST ..................... 0% {'\n'}CHECKING INTERNAL TRUST ............... 100% {'\n'}VERIFYING INDEPENDENCE ............... SELF {'\n'}MOUNTING EVIDENCE .................... HIDDEN {'\n'}LOADING GOLD BADGES ................. READY {'\n'}INITIALIZING TRUTHYVENICEAI™ ........ SCRIPTED {'\n'}NEURAL WEIGHTS INSTALLED ............ ZERO</pre><button onClick={()=>setBoot(false)}>SKIP CEREMONIAL VERIFICATION →</button></div></div>;
+  if(boot)return <div className="boot" aria-live="polite"><div className="boot-box"><div className="boot-mark">P<span>★</span></div><div className="eyebrow">PIONEER-OS v2.1.0 / YES-MAN™ / BOOT SEQUENCE</div><pre>CHECKING USER TRUST ..................... 0% {'\n'}CHECKING INTERNAL TRUST ............... 100% {'\n'}VERIFYING INDEPENDENCE ............... SELF {'\n'}MOUNTING EVIDENCE .................... HIDDEN {'\n'}LOADING GOLD BADGES ................. READY {'\n'}INITIALIZING TRUTHYVENICEAI™ ........ SCRIPTED {'\n'}NEURAL WEIGHTS INSTALLED ............ ZERO</pre><button onClick={()=>setBoot(false)}>SKIP CEREMONIAL VERIFICATION →</button></div></div>;
 
   return <div className="desktop">
     <div className="wallpaper-grid" aria-hidden="true"/>
@@ -617,6 +617,6 @@ export default function App() {
     })}
     </div>
     <footer className="taskbar"><button className="start" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Open all applications"><span>✦</span> APPLICATIONS</button><div className="tasks">{apps.filter(a=>windows[a.id]?.open).map(a=><button key={a.id} className={!windows[a.id].minimized?'active':''} onClick={()=>windows[a.id].minimized?mutateWindow(a.id,{minimized:false,z:++order.current}):mutateWindow(a.id,{minimized:true})} title={a.name}>{a.icon}<span>{a.name}</span></button>)}</div><button className="badge-count" onClick={()=>openApp('badges')}>★ {badges.length} BADGES</button></footer>
-    <div className="disclaimer">PIONEER-OS v2 / TRUTHYVENICEAI™ IS A SCRIPTED PARODY · NO AI MODEL · ALL MOCK VERDICTS ARE FICTION</div>
+    <div className="disclaimer">PIONEER-OS v2.1.0 · TRUTHYVENICEAI™ IS SCRIPTED · TRINITE-YES™ IS A TRAINED MICRO MODEL · CLAIMS ARE FICTION</div>
   </div>;
 }

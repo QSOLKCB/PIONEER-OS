@@ -1,6 +1,6 @@
 # TRINITE-YES-002 — The Always-Yes Magic 8-Ball + Phallic Confidence Protocol™
 
-Status: additive post-PR-7 response-surface experiment. No model-weights change, no native Trinite run, no release tag created by this change.
+Status: merged in PR #8 on 17 November 2026 and incorporated into the v2.1.0 release candidate. No model-weights change and no native Trinite run; this feature PR did not create a release tag.
 
 ## What actually changed
 
