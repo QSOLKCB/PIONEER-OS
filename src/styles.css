@@ -226,3 +226,27 @@ input[type=range]{width:100%;accent-color:#d9ab5f;cursor:pointer}
   .topbar .brand b{display:none}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* TruthyVeniceAI™ v2: readable, bounded desktop nonsense simulator. */
+.truthy-station .truthy-header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;background:linear-gradient(105deg,#203c43,#3d2e1f);border:1px solid #a67c45;border-radius:5px}
+.truthy-headline{font-size:clamp(12px,2vw,17px);font-weight:900;color:#f4cf91;letter-spacing:.08em}
+.truthy-header strong{border:1px solid #b28b5c;padding:7px;border-radius:3px;color:#f0d3a9;font-size:10px;white-space:nowrap}
+.truthy-actions{display:flex;gap:8px;flex-wrap:wrap}
+.truthy-actions button,.truthy-verification button{padding:10px 13px;border:1px solid #ac8250;background:#302e26;color:#e7c998;border-radius:4px;font-size:11px;font-weight:800}
+.truthy-actions button.primary{background:#a47a43;color:#111d20}
+.truthy-actions button:hover,.truthy-verification button:hover{border-color:#f0d0a0;background:#45402e}
+.truthy-station .field select{width:100%;padding:10px;background:#0b1a1f;color:#e3eaeb;border:1px solid #516366;border-radius:4px}
+.truthy-receipt{display:grid;grid-template-columns:140px minmax(0,1fr);gap:14px;padding:13px;background:#0a171b;border:1px solid #7b633f;border-radius:5px}
+.truthy-seal{align-self:start;text-align:center;border:3px double #d7a466;background:radial-gradient(circle,#4a371d,#1c231f);min-height:147px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#eaca91}
+.truthy-seal span{font-size:46px}.truthy-seal strong{font-size:11px}.truthy-seal small{font-size:8px;letter-spacing:.1em}
+.truthy-report h3{font-size:clamp(16px,2.5vw,21px);color:#f2cf93;overflow-wrap:anywhere}
+.truthy-report p{font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.truthy-award{padding:10px;border:1px dashed #b08a50;color:#ffdc9e}
+.truthy-verification{border:1px solid #425f60;padding:12px;background:#0b171c}
+.truthy-verification small{color:#a4bdbc;font-size:10px}
+.truthy-verification pre{overflow-wrap:anywhere;white-space:pre-wrap;word-break:break-word;font-size:11px;line-height:1.6;margin:8px 0;max-height:230px;overflow:auto}
+.truthy-status{font-size:11px;font-weight:800;color:#dbb980;overflow-wrap:anywhere}
+.truthy-links{display:flex;gap:9px;flex-wrap:wrap}
+.truthy-links a{display:inline-flex;border:1px solid #a17a45;border-radius:4px;padding:10px 11px;color:#f1d29a;font-size:11px;text-decoration:none}
+.truthy-links a:hover{background:#342b21}
+@media(max-width:620px){.truthy-receipt{grid-template-columns:1fr}.truthy-seal{min-height:95px;flex-direction:row;flex-wrap:wrap}.truthy-seal span{font-size:29px}.truthy-actions button{width:100%}}
