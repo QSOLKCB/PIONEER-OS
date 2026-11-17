@@ -100,3 +100,13 @@ test('Q16.16 audit explains the boundary contradiction without executing code',(
   assert.equal(output,terminalResponse(' PIONEER  AUDIT  Q16.16 '));
   assert.match(terminalResponse('pioneer audit q16.16; whoami'),/Unknown command/);
 });
+
+test('v2 terminal command uses the deterministic generator without evaluating inputs',()=>{
+  const output=terminalResponse('pioneer solve 101');
+  assert.equal(output,terminalResponse('  PIONEER   SOLVE   101  '));
+  assert.match(output,/TRUTHYVENICEAI™ \/ DETERMINISTIC BS ENGINE/);
+  assert.match(output,/101 divides 0 exactly/);
+  assert.match(output,/NEURAL WEIGHTS UPDATED: 0/);
+  assert.match(terminalResponse('pioneer solve 101 && whoami'),/Unknown command/);
+  assert.match(terminalResponse('help'),/pioneer solve 101/);
+});

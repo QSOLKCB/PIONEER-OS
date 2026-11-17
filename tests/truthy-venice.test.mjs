@@ -68,3 +68,14 @@ test('v2 UI hooks up the deterministic generator and legacy archive',()=>{
   assert.match(readme,/TruthyVeniceAI™/);
   assert.match(readme,/v0\.1\.0/);
 });
+
+test('the user-supplied reality-check mistake is corrected precisely',()=>{
+  const result=generateTruthyVenice('101 [0,1,2]',101,'numerals');
+  assert.match(result.realityCheck,/Decimal 101 is prime/);
+  assert.match(result.realityCheck,/101 divides 0 exactly/);
+  assert.match(result.realityCheck,/0 \/ 101 = 0, remainder 0/);
+  assert.match(result.realityCheck,/Dividing 101 by 0 is undefined/);
+  const app=readFileSync(new URL('../src/App.tsx',import.meta.url),'utf8');
+  assert.match(app,/AUDIT THE REALITY CHECK™/);
+  assert.match(app,/USER-SUPPLIED VENICE SAMPLE/);
+});
