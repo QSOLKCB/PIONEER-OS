@@ -104,7 +104,7 @@ export function validateTruthySeed(seed: number): number {
 function realityFor(mode: TruthyMode): string {
   switch (mode) {
     case 'numerals':
-      return '101 in base 3 equals 10 in decimal. The ternary digit alphabet is {0,1,2}; 101 uses only 0 and 1. “101 [0,1,2]” is ambiguous without an explicitly defined operation.';
+      return '101 in base 3 equals 10 in decimal. The ternary digit alphabet is {0,1,2}; 101 uses only 0 and 1. Decimal 101 is prime, but 101 divides 0 exactly (0 / 101 = 0, remainder 0). Dividing 101 by 0 is undefined. “101 [0,1,2]” is ambiguous without a defined operation.';
     case 'reality':
       return 'An attractive sentence or a numerical pattern is not empirical evidence about physics or consciousness.';
     case 'ownership':
