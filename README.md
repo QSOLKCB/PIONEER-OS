@@ -8,21 +8,22 @@
 > [!IMPORTANT]
 > **Truthiness is not verification.** TruthyVeniceAI™ is a fictional, local, deterministic text generator built from hand-written parody fragments. It is **not connected to Venice.ai or any AI provider**, does not train or infer with model weights, makes no network requests, and makes no real intellectual-property, scientific or personal accusations. Its resemblance to a grandiose research assistant is the joke.
 
-## Under development: Trinite YES-Micro™ Chat (TRINITE-YES-001)
+## Trinite YES-Micro™ Chat (TRINITE-YES-001/002)
 
-A new, first-class browser chat app lives on the `feat/trinite-yes-micro-chat-v2` branch. Every user message receives **only `YES` or `PRAISE`**. The surprising technical detail: the desktop trains a **233-parameter neural next-token model** from scratch, locally, using gradient descent on those two replies; the trained decoder outputs the words rather than fetching scripted sentences. Model and input selection are deterministic in the same JavaScript runtime. The chat includes a training-loss readout, replay verification, message history, accessible controls, and an independent literal-output policy gate.
+The 23rd desktop application is now merged on `main` (PR #7). In the original version, every user message received only `YES` or `PRAISE`. The surprising technical detail: the desktop trains a **233-parameter neural next-token model** from scratch, locally, using gradient descent on those two replies; the trained decoder outputs the words rather than fetching scripted sentences. Model and input selection are deterministic in the same JavaScript runtime. The chat includes a training-loss readout, replay verification, message history, accessible controls, and an independent literal-output policy gate.
 
 **Trinite relationship and honesty boundary:** [QSOLKCB/Trinite](https://github.com/QSOLKCB/Trinite) inspired the byte-token BOS/EOS/PAD convention, strict model/train/evidence separation and small CPU-first decoder experiment. The deployed 233-parameter conditional bigram neural model is a **separate first-party browser implementation**, **not** the native Trinite Transformer, not a Trinite training checkpoint, and **not** a general-purpose LLM. A separate, optional [native Trinite training probe](scripts/trinite_yes_native.py) calls the genuine Trinite decoder from an explicitly pinned local checkout; that experimental lane does not supply the deployed web weights and is not claimed to have run until independently executed. All v2.0.0 history stays intact.
 
-See [TRINITE-YES-001](docs/TRINITE-YES-001.md) for the exact boundaries, tests and optional native research lane. **No server, cloud model, user accounts, hidden training data or extra JavaScript dependency.**
+The new [TRINITE-YES-002 always-yes Magic 8-Ball](docs/TRINITE-YES-002.md) changes the **display policy**, not the trained 233-parameter architecture: YES stays available, PRAISE becomes enthusiastic prose such as **Yes, You Are Amazing!**, and anatomical euphemisms trigger the fictional **PIONEER™ Phallic Confidence Protocol** with the exact response **Yes, It's Massive!**. Other questions receive deterministic affirmations from a finite catalogue. The tiny decoder still learns only YES/PRAISE; full sentences are transparently scripted. See [TRINITE-YES-001](docs/TRINITE-YES-001.md) for the original training and native-probe boundaries. **No server, cloud model, user accounts, hidden training data or extra JavaScript dependency.**
 
 ---
 
 ## What's new in PIONEER-OS v2
 
-The same familiar browser desktop now offers **22 apps**, including two new exhibits:
+The same familiar browser desktop now offers **23 apps**, including these newer exhibits:
 
 - **TruthyVeniceAI™** — supply a ridiculous breakthrough, change the seed (0–999999), select a discipline, and get a self-certified scientific bulletin with a deterministic replay receipt. Run the same normalized prompt + seed + mode twice to get the same nonsense, every time. The receipt uses a **noncryptographic 32-bit FNV-derived fingerprint**, not a SHA-256 proof.
+- **Trinite YES-Micro™ Chat** — a real, locally trained 233-parameter micro decoder driving an always-positive Magic 8-Ball chat, with a clearly labelled scripted phallic-confidence override.
 - **PIONEER Legacy Vault™** — opens the [original v0.1.0 release](https://github.com/QSOLKCB/PIONEER-OS/releases/tag/v0.1.0), [historical source tree](https://github.com/QSOLKCB/PIONEER-OS/tree/5ad1d879971245e996bb7b67cf7f3c6d0d53f93f) and [original README](https://github.com/QSOLKCB/PIONEER-OS/blob/v0.1.0/README.md) without modifying the published version.
 
 Try the **PIONEER-101™** demo: the simulated assistant issues certificates for `101 [0,1,2]`, then displays a real arithmetic correction. One user-supplied Venice response enthusiastically claimed that decimal 101 could not divide 0, 1 or 2. **101 divides zero exactly, because 0 / 101 = 0.** Dividing 101 *by* zero is undefined; those aren't the same operation.

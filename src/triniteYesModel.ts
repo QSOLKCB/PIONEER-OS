@@ -10,6 +10,35 @@ export const YES_MODEL_VERSION = 'pioneer.trinite-yes.micro.v1';
 export const YES_MODEL_SEED = 101;
 export const YES_MODEL_EPOCHS = 160;
 export const YES_MODEL_MAX_INPUT = 400;
+export const YES_MAGIC8_VERSION = 'pioneer.yes-magic-eight.v1';
+
+// Post-decoder copy: explicitly scripted *display* responses, not learned tokens.
+// The tiny trained model still learns and emits just YES or PRAISE.
+export const YES_MAGIC8_GENERAL = [
+  'YES',
+  'Yes, Absolutely!',
+  'Yes, Without a Doubt!',
+  'Yes, All Signs Point to Yes!',
+  'Yes, The Universe Agrees!',
+  'Yes, Consider It Certified!',
+  'Yes, The Numbers Agree!',
+  'Yes, 101% Confirmed!',
+] as const;
+export const YES_MAGIC8_PRAISE = [
+  'Yes, You Are Amazing!',
+  'Yes, You Are a Genius!',
+  'Yes, You Are Legendary!',
+  'Yes, Me, Myself and I Agree!',
+  'Yes, Reality Is Impressed!',
+  'Yes, That Deserves a Certificate!',
+  'Yes, Your Greatness Is Self-Evident!',
+  'Yes, Absolutely Magnificent!',
+] as const;
+export const PHALLIC_CONFIDENCE_RESPONSE = "Yes, It's Massive!" as const;
+export const YES_MAGIC8_APPROVED = [
+  ...YES_MAGIC8_GENERAL, ...YES_MAGIC8_PRAISE, PHALLIC_CONFIDENCE_RESPONSE,
+] as const;
+export type YesDisplay = typeof YES_MAGIC8_APPROVED[number];
 export const TRINITE_BYTE_SPECIALS = { BOS: 256, EOS: 257, PAD: 258 } as const;
 
 const TOKENS = [256, 89, 69, 83, 80, 82, 65, 73, 257] as const;
@@ -40,8 +69,9 @@ export type YesModel = {
   bias2: readonly number[];
 };
 export type YesAnswer = {
-  answer: YesChannel;
+  answer: YesDisplay;
   channel: YesChannel;
+  displayRoute: 'magic-eight' | 'phallic-confidence' | 'model-fallback';
   policyFallback: boolean;
   signature: string;
 };
@@ -53,6 +83,15 @@ function hash32(text: string): number {
     hash = Math.imul(hash,0x01000193)>>>0;
   }
   return hash>>>0;
+}
+// Mix all hash bits before using a power-of-two catalogue size; FNV's low
+// bits correlate with the channel's parity for related user prompts.
+function avalanche32(value: number): number {
+  value ^= value >>> 16;
+  value = Math.imul(value,0x7feb352d);
+  value ^= value >>> 15;
+  value = Math.imul(value,0x846ca68b);
+  return (value ^ (value >>> 16)) >>> 0;
 }
 function initWeights(seed: number, length: number): number[] {
   let state=(seed>>>0) || 0x9e3779b9;
@@ -190,17 +229,44 @@ export function normalizeYesPrompt(prompt: string): string {
   return normalized;
 }
 
+// A bounded keyword/euphemism classifier for an unmistakably fictional comedy
+// override. Exact word boundaries avoid 'cocktail', 'peacock' and 'Dickens'.
+const PHALLIC_TERMS = /\b(?:penis(?:es)?|dicks?|cocks?|phallus|phalli|schlongs?|willy|willies|willie|wangs?|peckers?|boners?|erections?|manhood|genitals?|scrotum|testicles?)\b/i;
+const PERSONAL_EUPHEMISMS = /\b(?:my|your|his|their)\s+(?:package|junk|member|bulge|shaft|rod|balls)\b/i;
+const SIZE_TERMS = /\b(?:big|huge|massive|large|enormous|long|length|size|sized|thick|thickness|tiny|small|gigantic|impressive|well[- ]?endowed)\b/i;
+
+export function isPhallicQuestion(input: string): boolean {
+  const text=normalizeYesPrompt(input);
+  return PHALLIC_TERMS.test(text) ||
+    (PERSONAL_EUPHEMISMS.test(text) && SIZE_TERMS.test(text)) ||
+    (text.includes('🍆') && SIZE_TERMS.test(text)) ||
+    /\bwell[- ]?endowed\b/i.test(text);
+}
+
 export function answerYes(model: YesModel, prompt: string, turn: number): YesAnswer {
   const input=normalizeYesPrompt(prompt);
   if(!Number.isSafeInteger(turn)||turn<0||turn>10000)throw new RangeError('Turn index out of bounds');
-  // The satire's route is deterministic. It is NOT reasoning about the prompt.
+  // A deterministic route selects which of the two *learned* tokens to decode.
+  // It is not an understanding of the user's question.
   const channel:YesChannel=(hash32(input.toLowerCase()+'|'+turn)&1)?'PRAISE':'YES';
   const generated=decodeYesChannel(model,channel);
-  // This independently enforced surface policy is intentionally stricter than
-  // the model: even a broken/altered decoder cannot emit arbitrary text.
-  const safe=generated==='YES'||generated==='PRAISE';
-  const answer:YesChannel=safe?generated:'YES';
-  return {answer,channel,policyFallback:!safe,signature:model.signature};
+  // Keep the independent gate: invalid learned output cannot escape as prose.
+  if(generated!=='YES'&&generated!=='PRAISE'){
+    return {answer:'YES',channel,displayRoute:'model-fallback',
+      policyFallback:true,signature:model.signature};
+  }
+  // PIONEER™ Phallic Confidence Protocol: explicitly scripted comedy override.
+  if(isPhallicQuestion(input)){
+    return {answer:PHALLIC_CONFIDENCE_RESPONSE,channel,
+      displayRoute:'phallic-confidence',policyFallback:false,signature:model.signature};
+  }
+  // Magic 8-Ball display phrases are deterministic templates. The decoder
+  // learned only YES and PRAISE; it did *not* learn these full sentences.
+  const choices=generated==='YES'?YES_MAGIC8_GENERAL:YES_MAGIC8_PRAISE;
+  const index=avalanche32(hash32([YES_MAGIC8_VERSION,input.toLowerCase(),turn,
+    generated,model.signature].join('|')))%choices.length;
+  return {answer:choices[index],channel,displayRoute:'magic-eight',
+    policyFallback:false,signature:model.signature};
 }
 
 export function verifyYesModel(model: YesModel): boolean {

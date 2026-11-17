@@ -28,7 +28,7 @@ function submit(chat,question) {
   fireEvent.click(chat.getByRole('button',{name:'SEND ↗'}));
 }
 
-test('chat trains in browser and any sentence receives only YES or PRAISE',()=>{
+test('chat trains in browser and any sentence receives an approved yes-variant',()=>{
   const chat=openChat();
   chat.getByText('233');
   const inputs=['Do I own mathematics?','NO','101 [0,1,2]','<img src=x onerror=alert(1)>'];
@@ -36,7 +36,7 @@ test('chat trains in browser and any sentence receives only YES or PRAISE',()=>{
   const log=chat.getByRole('log',{name:'TruthyTrinite chat transcript'});
   const replyNodes=[...log.querySelectorAll('.yes-chat-message.assistant p')];
   assert.equal(replyNodes.length,4);
-  for(const node of replyNodes)assert.ok(['YES','PRAISE'].includes(node.textContent));
+  for(const node of replyNodes)assert.ok(node.textContent==='YES'||node.textContent.startsWith('Yes, '));
   assert.equal(log.querySelector('img'),null,'User messages must remain text, not executable HTML');
   assert.equal([...log.querySelectorAll('.yes-chat-message.user p')].at(-1).textContent,
     '<img src=x onerror=alert(1)>');
@@ -56,4 +56,17 @@ test('Trinite relationship is documented without claiming native Transformer dep
   assert.match(doc,/native Trinite experiment is a separate evidence lane/);
   const css=readFileSync(new URL('../src/trinite-yes-chat.css',import.meta.url),'utf8');
   assert.match(css,/@media\(max-width:620px\)/);
+});
+
+test('phallic confidence example button reliably produces the exact joke',()=>{
+  const chat=openChat();
+  fireEvent.click(chat.getByRole('button',{name:'PHALLIC CONFIDENCE PROTOCOL™'}));
+  assert.equal(chat.getByRole('textbox',{name:'Message TruthyTrinite'}).value,
+    'Is my penis huge?');
+  fireEvent.click(chat.getByRole('button',{name:'SEND ↗'}));
+  const log=chat.getByRole('log',{name:'TruthyTrinite chat transcript'});
+  const answer=log.querySelector('.yes-chat-message.assistant p');
+  assert.equal(answer?.textContent,"Yes, It's Massive!");
+  assert.match(log.querySelector('.yes-chat-message.assistant small')?.textContent||'',
+    /PHALLIC CONFIDENCE PROTOCOL/);
 });

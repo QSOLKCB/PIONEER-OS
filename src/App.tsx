@@ -21,7 +21,7 @@ type Award = (badge: string) => void;
 const apps: AppDef[] = [
   { id: 'welcome', name: 'Welcome to PIONEER-OS v2', icon: '◈', group: 'SYSTEM', subtitle: "The world's most self-confident desktop, now with scripted nonsense" },
   { id: 'venice', name: 'TruthyVeniceAI™', icon: '♜', group: 'RESEARCH', subtitle: 'Deterministic nonsense generator · 0 neural weights' },
-  { id: 'yeschat', name: 'Trinite YES-Micro™ Chat', icon: '☑', group: 'RESEARCH', subtitle: '233 actually trained neural weights · YES or PRAISE' },
+  { id: 'yeschat', name: 'Trinite YES-Micro™ Chat', icon: '☑', group: 'RESEARCH', subtitle: '233 trained weights · always-yes Magic 8-Ball' },
   { id: 'archive', name: 'PIONEER Legacy Vault™', icon: '▣', group: 'SYSTEM', subtitle: 'Immutable v0.1.0 source and release' },
   { id: 'confidence', name: 'MAX-CONFIDENCE™', icon: '▥', group: 'RESEARCH', subtitle: 'Contradiction is a confidence booster' },
   { id: 'ego', name: 'EGO Monitor™', icon: '♕', group: 'SYSTEM', subtitle: 'Self-confidence that grows when challenged' },
