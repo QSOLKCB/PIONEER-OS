@@ -28,8 +28,8 @@ export default function TriniteYesChat({award}: {award:(badge:string)=>void}) {
       const response=answerYes(model,text,turn);
       setMessages(old=>[
         ...old,
-        {id:turn*2,role:'user',content:text},
-        {id:turn*2+1,role:'assistant',content:response.answer,channel:response.channel},
+        {id:turn*2,role:'user' as const,content:text},
+        {id:turn*2+1,role:'assistant' as const,content:response.answer,channel:response.channel},
       ].slice(-MAX_VISIBLE_MESSAGES));
       setTurn(previous=>previous+1);
       setInput('');

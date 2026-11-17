@@ -165,7 +165,7 @@ export function trainYesModel(seed: number=YES_MODEL_SEED, epochs: number=YES_MO
 export function decodeYesChannel(model: YesModel, channel: YesChannel): string {
   if(model.version!==YES_MODEL_VERSION||!CHANNELS.includes(channel))throw new TypeError('Unsupported tiny model');
   const mode=channel==='YES'?0:1;
-  let previous=TRINITE_BYTE_SPECIALS.BOS;
+  let previous: number=TRINITE_BYTE_SPECIALS.BOS;
   let output='';
   for(let position=0;position<12;position++){
     const {probabilities}=predict(mode*OUTPUTS+tokenIndex(previous),

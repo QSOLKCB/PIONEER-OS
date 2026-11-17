@@ -79,11 +79,12 @@ Inspired by the interactive [LCOS parody](https://github.com/QSOLKCB/LCOS), this
 
 ## The application catalogue
 
-All **22 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
+All **23 apps** are available from the desktop launcher. This isn't a static screenshot: the apps include working, explicitly satirical interactions.
 
 | Application | Certified™ behaviour |
 | --- | --- |
 | **TruthyVeniceAI™ (v2)** | Reproducibly produces pompous, fictional scientific nonsense from a bounded prompt and seed. |
+| **Trinite YES-Micro™ Chat (experimental)** | Trains 233 neural weights locally, then agrees with every prompt using only YES or PRAISE. |
 | **PIONEER Legacy Vault™ (v2)** | Preserves links to the original immutable v0.1.0 release and source. |
 | **MAX-CONFIDENCE™** | More contradictions yield greater fake certainty. |
 | **EGO Monitor™** | Distinct badges and objections raise fictional ego; repeat awards don't double-count. The cap is disclosed. |
